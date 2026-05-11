@@ -16,8 +16,50 @@
 </head>
 
 <body>
+
+  <!-- ═══ INTRO OVERLAY ═══ -->
+  <div class="intro-overlay" id="introOverlay" role="dialog" aria-label="Opening sequence" aria-modal="true">
+    <div class="intro-stage">
+      <div class="intro-crown-wrap">
+        <div class="intro-crown" id="introCrown">&#9819;</div>
+        <div class="intro-ripple" id="introRipple"></div>
+        <div class="intro-swirl-wrap" id="introSwirlWrap">
+          <div class="intro-swirl"></div>
+        </div>
+      </div>
+      <div class="intro-text" id="introText">
+        <p class="intro-eyebrow">THE CREAMY QUEEN</p>
+        <h2 class="intro-headline">The Drop Is Open.</h2>
+        <p class="intro-sub">Where Every Scoop Gets Crowned.</p>
+      </div>
+    </div>
+    <button class="intro-skip" id="introSkip" aria-label="Skip intro">Skip &darr;</button>
+  </div>
+
+  <!-- ═══ CONFETTI CONTAINER ═══ -->
+  <div class="confetti-container" id="confettiContainer" aria-hidden="true"></div>
+
+  <!-- ═══ URGENCY BANNER ═══ -->
+  <div class="urgency-banner" id="urgencyBanner" aria-live="polite"></div>
+
+  <!-- ═══ PAGE GLOW ═══ -->
   <div class="page-glow"></div>
 
+  <!-- ═══ SCROLL INDICATOR ═══ -->
+  <nav class="scroll-indicator" id="scrollIndicator" aria-label="Page sections">
+    <div class="si-track" id="siTrack">
+      <span class="si-dot" data-label="Top" data-href="#top"></span>
+      <span class="si-dot" data-label="Drop" data-href="#drop"></span>
+      <span class="si-dot" data-label="Flavors" data-href="#flavors"></span>
+      <span class="si-dot" data-label="Packs" data-href="#packs"></span>
+      <span class="si-dot" data-label="Events" data-href="#events"></span>
+      <span class="si-dot" data-label="Crown Club" data-href="#crown-club"></span>
+      <span class="si-dot" data-label="Preorder" data-href="#preorder"></span>
+    </div>
+    <div class="si-crown" id="siCrown" aria-hidden="true">&#9819;</div>
+  </nav>
+
+  <!-- ═══ HEADER ═══ -->
   <header class="site-header" id="top">
     <a class="brand" href="#top" aria-label="The Creamy Queen home">
       <span class="brand-mark" aria-hidden="true">
@@ -30,13 +72,14 @@
       </span>
     </a>
 
-    <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu">&#9776;</button>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
 
     <nav class="nav" id="nav">
       <a href="#drop">The Drop</a>
       <a href="#flavors">Flavors</a>
       <a href="#packs">Packs</a>
       <a href="#events">Events</a>
+      <a href="#crown-club">Crown Club</a>
       <a href="#preorder">Preorder</a>
     </nav>
 
@@ -44,23 +87,26 @@
   </header>
 
   <main>
+
+    <!-- ═══ HERO ═══ -->
     <section class="hero section-pad">
       <div class="hero-content reveal">
         <div class="eyebrow">
           <span class="dot"></span>
           Atlanta Area Pop-Up Ice Cream
+          <span class="live-badge" id="liveBadge">LIVE</span>
         </div>
 
         <h1>Dessert royalty, released by the drop.</h1>
 
         <p class="hero-copy">
           The Creamy Queen is a premium pop-up ice cream experience built around
-          limited 8 oz cups, family boxes, party drops, and catering-ready flavor moments.
+          limited 8&nbsp;oz cups, family boxes, party drops, and catering-ready flavor moments.
           When the drop sells out, the crown closes.
         </p>
 
         <div class="hero-actions">
-          <a class="button primary" href="#preorder">Reserve the Next Drop</a>
+          <a class="button primary shimmer" href="#preorder" id="heroCtaBtn">Reserve the Next Drop</a>
           <a class="button ghost" href="#flavors">View Launch Flavors</a>
         </div>
 
@@ -86,7 +132,7 @@
 
       <div class="hero-visual reveal">
         <div class="royal-card">
-          <div class="floating-badge">Limited Drop</div>
+          <div class="floating-badge" id="floatingBadge">Limited Drop</div>
           <div class="dessert-orb">
             <div class="soft-serve"></div>
             <div class="cup"></div>
@@ -99,19 +145,40 @@
             <p>Built for preorders, pop-ups, party boxes, team treats, and catering.</p>
           </div>
 
-          <div class="inventory">
-            <div class="inventory-top">
-              <span>Drop Capacity</span>
-              <strong><span id="soldCount">42</span>/60 claimed</strong>
+          <!-- LIQUID FILL METER (replaces flat bar) -->
+          <div class="liquid-meter" id="liquidMeter">
+            <div class="lm-cup-area">
+              <div class="lm-cup" id="lmCup">
+                <div class="lm-fill" id="lmFill">
+                  <div class="lm-foam"></div>
+                </div>
+                <div class="lm-gleam"></div>
+              </div>
+              <div class="lm-cup-label">&#9819;</div>
             </div>
-            <div class="inventory-bar">
-              <span id="inventoryFill"></span>
+            <div class="lm-info">
+              <div class="lm-top">
+                <span>Drop Capacity</span>
+                <strong><span id="soldCount">42</span>/60 claimed</strong>
+              </div>
+              <p class="lm-status" id="lmStatus">Cups are going fast.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- DRIP DIVIDER 1 -->
+    <div class="drip-divider" role="separator" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,0 L1440,0 L1440,50 Q1320,90 1200,55 Q1080,20 960,60 Q840,90 720,55 Q600,20 480,60 Q360,90 240,55 Q120,20 0,50 Z" fill="rgba(255,255,255,0.04)"/>
+        <ellipse cx="280" cy="82" rx="9" ry="14" fill="rgba(255,255,255,0.04)"/>
+        <ellipse cx="720" cy="88" rx="7" ry="11" fill="rgba(255,255,255,0.04)"/>
+        <ellipse cx="1140" cy="83" rx="8" ry="12" fill="rgba(255,255,255,0.04)"/>
+      </svg>
+    </div>
+
+    <!-- ═══ THE DROP SYSTEM ═══ -->
     <section class="section-pad" id="drop">
       <div class="section-title reveal">
         <span class="kicker">The Drop System</span>
@@ -136,7 +203,7 @@
         <article class="timeline-card reveal">
           <span class="step">03</span>
           <h3>Build the Cups</h3>
-          <p>Each 8 oz cup gets layered, labeled, packaged, and finished with premium presentation.</p>
+          <p>Each 8&nbsp;oz cup gets layered, labeled, packaged, and finished with premium presentation.</p>
         </article>
         <article class="timeline-card reveal">
           <span class="step">04</span>
@@ -146,6 +213,16 @@
       </div>
     </section>
 
+    <!-- DRIP DIVIDER 2 -->
+    <div class="drip-divider drip-choc" role="separator" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,10 Q180,60 360,20 Q540,0 720,40 Q900,80 1080,30 Q1260,0 1440,30 L1440,0 L0,0 Z" fill="rgba(212,175,55,0.07)"/>
+        <ellipse cx="450" cy="76" rx="10" ry="15" fill="rgba(212,175,55,0.07)"/>
+        <ellipse cx="950" cy="80" rx="8" ry="13" fill="rgba(212,175,55,0.07)"/>
+      </svg>
+    </div>
+
+    <!-- ═══ FLAVORS ═══ -->
     <section class="section-pad flavors-section" id="flavors">
       <div class="section-title reveal">
         <span class="kicker">Launch Flavors</span>
@@ -157,9 +234,10 @@
       </div>
 
       <div class="flavor-grid">
-        <article class="flavor-card vanilla reveal">
+        <article class="flavor-card vanilla reveal" data-cursor="vanilla">
           <div class="flavor-art">
             <span class="mini-cup"></span>
+            <span class="hover-crown" aria-hidden="true">&#9819;</span>
           </div>
           <div class="pill">Classic Royalty</div>
           <h3>Vanilla Crown</h3>
@@ -173,9 +251,10 @@
           <strong class="price">$7</strong>
         </article>
 
-        <article class="flavor-card cookies reveal">
+        <article class="flavor-card cookies reveal" data-cursor="cookies">
           <div class="flavor-art">
             <span class="mini-cup"></span>
+            <span class="hover-crown" aria-hidden="true">&#9819;</span>
           </div>
           <div class="pill">Best Seller Energy</div>
           <h3>Cookies &amp; Cream Castle</h3>
@@ -189,9 +268,10 @@
           <strong class="price">$7</strong>
         </article>
 
-        <article class="flavor-card lime reveal">
+        <article class="flavor-card lime reveal" data-cursor="lime">
           <div class="flavor-art">
             <span class="mini-cup"></span>
+            <span class="hover-crown" aria-hidden="true">&#9819;</span>
           </div>
           <div class="pill">Signature Specialty</div>
           <h3>Key Lime Queen</h3>
@@ -207,6 +287,16 @@
       </div>
     </section>
 
+    <!-- DRIP DIVIDER 3 -->
+    <div class="drip-divider drip-lime" role="separator" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,40 Q240,90 480,40 Q720,0 960,50 Q1200,90 1440,40 L1440,0 L0,0 Z" fill="rgba(207,238,161,0.05)"/>
+        <ellipse cx="600" cy="82" rx="9" ry="13" fill="rgba(207,238,161,0.05)"/>
+        <ellipse cx="1200" cy="78" rx="7" ry="11" fill="rgba(207,238,161,0.05)"/>
+      </svg>
+    </div>
+
+    <!-- ═══ PACKS ═══ -->
     <section class="section-pad packs-panel" id="packs">
       <div class="packs-copy reveal">
         <span class="kicker">Increase Volume</span>
@@ -221,7 +311,7 @@
         <article class="pack-card reveal">
           <span>1 Cup</span>
           <h3>Single Crown Cup</h3>
-          <p>One premium 8 oz cup. Perfect first taste.</p>
+          <p>One premium 8&nbsp;oz cup. Perfect first taste.</p>
           <strong>$7</strong>
         </article>
         <article class="pack-card featured reveal">
@@ -245,6 +335,7 @@
       </div>
     </section>
 
+    <!-- ═══ EVENTS ═══ -->
     <section class="section-pad events" id="events">
       <div class="section-title reveal">
         <span class="kicker">Events &amp; Catering</span>
@@ -279,6 +370,398 @@
       </div>
     </section>
 
+    <!-- DRIP DIVIDER 4 (caramel gold) -->
+    <div class="drip-divider drip-gold" role="separator" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,30 Q360,90 720,30 Q1080,0 1440,50 L1440,0 L0,0 Z" fill="rgba(212,175,55,0.09)"/>
+        <ellipse cx="360" cy="84" rx="10" ry="16" fill="rgba(212,175,55,0.09)"/>
+        <ellipse cx="1080" cy="82" rx="8" ry="13" fill="rgba(212,175,55,0.09)"/>
+      </svg>
+    </div>
+
+    <!-- ═══ CROWN CLOCK (Countdown Timer) ═══ -->
+    <section class="section-pad crown-clock-section" id="clock">
+      <div class="clock-inner reveal">
+        <span class="kicker">The Cream Clock</span>
+        <p class="clock-top-label" id="clockTopLabel">Next Drop Opens In</p>
+        <div class="clock-blocks" id="clockBlocks">
+          <div class="clock-block">
+            <span id="clockDays">--</span>
+            <label>Days</label>
+          </div>
+          <div class="clock-sep">:</div>
+          <div class="clock-block">
+            <span id="clockHours">--</span>
+            <label>Hours</label>
+          </div>
+          <div class="clock-sep">:</div>
+          <div class="clock-block">
+            <span id="clockMins">--</span>
+            <label>Mins</label>
+          </div>
+          <div class="clock-sep">:</div>
+          <div class="clock-block">
+            <span id="clockSecs">--</span>
+            <label>Secs</label>
+          </div>
+        </div>
+        <p class="clock-sub" id="clockSub">Drop opens Friday, May 15 at 5:00 PM &bull; Atlanta Area</p>
+        <a class="button primary shimmer" href="#preorder">Reserve Before It Opens</a>
+      </div>
+    </section>
+
+    <!-- ═══ CROWN CLUB / DROP ALERT ═══ -->
+    <section class="section-pad crown-club-section" id="crown-club">
+      <div class="club-gate" id="clubGate">
+        <div class="gate-front" id="gateFront">
+          <div class="gate-door gate-left" id="gateDoorLeft" aria-hidden="true"></div>
+          <div class="gate-door gate-right" id="gateDoorRight" aria-hidden="true"></div>
+          <div class="gate-center reveal">
+            <span class="gate-crown-icon">&#9819;</span>
+            <span class="kicker">Crown Club</span>
+            <h2>Join the royal inner circle.</h2>
+            <p>Enter your phone or email to unlock early drop access, birthday Crown Cups, secret limited flavors, and the loyalty punch card.</p>
+            <form class="gate-form" id="gateForm" novalidate>
+              <input type="text" id="gateInput" placeholder="Phone or email" autocomplete="email" aria-label="Phone or email">
+              <button class="button primary shimmer" type="submit">Unlock the Crown</button>
+            </form>
+          </div>
+        </div>
+        <div class="gate-inside" id="gateInside" hidden aria-live="polite">
+          <span class="kicker">Crown Club</span>
+          <div class="gate-crown-big">&#9819;</div>
+          <h2>You&rsquo;ve Been Crowned.</h2>
+          <ul class="club-perks">
+            <li>&#9819; Early access to every drop</li>
+            <li>&#9819; Birthday Crown Cup reward</li>
+            <li>&#9819; Secret &amp; limited flavor previews</li>
+            <li>&#9819; Loyalty punch card &mdash; buy 8, get 1 free</li>
+            <li>&#9819; Catering discount code</li>
+          </ul>
+          <p class="club-member-num">You are Crown Member <strong id="clubNumber">#0049</strong></p>
+          <a class="button ghost" href="#vault">See the Flavor Vault</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SELLOUT ARCHIVE ═══ -->
+    <section class="section-pad archive-section" id="archive">
+      <div class="section-title reveal">
+        <span class="kicker">Drop History</span>
+        <h2>Every sellout is proof of the crown.</h2>
+      </div>
+      <div class="archive-grid reveal">
+        <article class="archive-card">
+          <div class="ac-drop">Drop 001</div>
+          <div class="ac-cups">18 Cups</div>
+          <div class="ac-time flip-cell" data-val="14 min">14 min</div>
+          <div class="ac-badge sold-out-badge">CROWNED OUT</div>
+        </article>
+        <article class="archive-card">
+          <div class="ac-drop">Drop 002</div>
+          <div class="ac-cups">40 Cups</div>
+          <div class="ac-time flip-cell" data-val="33 min">33 min</div>
+          <div class="ac-badge sold-out-badge">CROWNED OUT</div>
+        </article>
+        <article class="archive-card active-drop">
+          <div class="ac-drop">Drop 003</div>
+          <div class="ac-cups">60 Cups</div>
+          <div class="ac-time live-time">LIVE NOW</div>
+          <div class="ac-badge in-progress-badge">IN PROGRESS</div>
+        </article>
+        <article class="archive-card future-drop">
+          <div class="ac-drop">Drop 004</div>
+          <div class="ac-cups">100 Cup Goal</div>
+          <div class="ac-time">COMING</div>
+          <div class="ac-badge future-badge">COMING SOON</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══ DROP FORECAST ═══ -->
+    <section class="section-pad forecast-section" id="forecast">
+      <div class="forecast-layout">
+        <div class="forecast-text reveal">
+          <span class="kicker">Growth Path</span>
+          <h2>Pop-up today. Storefront tomorrow. Dessert empire next.</h2>
+          <p>The Creamy Queen scales week by week. Each drop builds the proof that leads to the storefront.</p>
+        </div>
+        <div class="forecast-bars reveal">
+          <div class="forecast-bar">
+            <span class="fb-label">Drop 001</span>
+            <div class="fb-track"><div class="fb-fill" style="--fpct:30%"><span>18 cups</span></div></div>
+          </div>
+          <div class="forecast-bar">
+            <span class="fb-label">Drop 002</span>
+            <div class="fb-track"><div class="fb-fill" style="--fpct:67%"><span>40 cups</span></div></div>
+          </div>
+          <div class="forecast-bar current-bar">
+            <span class="fb-label">Drop 003 &bull; Live</span>
+            <div class="fb-track"><div class="fb-fill active-fill" style="--fpct:100%"><span>60 cups</span></div></div>
+          </div>
+          <div class="forecast-bar future-bar">
+            <span class="fb-label">Drop 004 Goal</span>
+            <div class="fb-track"><div class="fb-fill future-fill" style="--fpct:100%"><span>100 cups</span></div></div>
+          </div>
+          <div class="forecast-bar future-bar">
+            <span class="fb-label">Storefront Goal</span>
+            <div class="fb-track"><div class="fb-fill future-fill" style="--fpct:100%"><span>150+ / week</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ ROYAL FLAVOR VAULT ═══ -->
+    <section class="section-pad vault-section" id="vault">
+      <div class="section-title reveal">
+        <span class="kicker">The Flavor Vault</span>
+        <h2>The next crowns are locked and waiting.</h2>
+        <p>Join the Crown Club above to unlock early previews of upcoming limited drops.</p>
+      </div>
+      <div class="vault-grid reveal" id="vaultGrid">
+        <article class="vault-card locked" data-flavor="Strawberry Shortcake Queen">
+          <div class="vault-frost"></div>
+          <span class="vault-lock-icon">&#128274;</span>
+          <p class="vault-name">Strawberry Shortcake Queen</p>
+          <span class="vault-status">Locked</span>
+        </article>
+        <article class="vault-card locked" data-flavor="Banana Pudding Throne">
+          <div class="vault-frost"></div>
+          <span class="vault-lock-icon">&#128274;</span>
+          <p class="vault-name">Banana Pudding Throne</p>
+          <span class="vault-status">Locked</span>
+        </article>
+        <article class="vault-card locked" data-flavor="Peach Cobbler Crown">
+          <div class="vault-frost"></div>
+          <span class="vault-lock-icon">&#128274;</span>
+          <p class="vault-name">Peach Cobbler Crown</p>
+          <span class="vault-status">Locked</span>
+        </article>
+        <article class="vault-card locked" data-flavor="Red Velvet Royalty">
+          <div class="vault-frost"></div>
+          <span class="vault-lock-icon">&#128274;</span>
+          <p class="vault-name">Red Velvet Royalty</p>
+          <span class="vault-status">Locked</span>
+        </article>
+        <article class="vault-card locked" data-flavor="Lemon Pound Cake Duchess">
+          <div class="vault-frost"></div>
+          <span class="vault-lock-icon">&#128274;</span>
+          <p class="vault-name">Lemon Pound Cake Duchess</p>
+          <span class="vault-status">Locked</span>
+        </article>
+        <article class="vault-card hint-card" data-flavor="Caramel Praline Crown">
+          <div class="vault-frost hint-frost"></div>
+          <span class="vault-lock-icon">&#10022;</span>
+          <p class="vault-name">Caramel Praline Crown</p>
+          <span class="vault-status hint-status">Next in Line</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══ FLAVOR VOTING BATTLE ═══ -->
+    <section class="section-pad vote-section" id="vote">
+      <div class="section-title reveal">
+        <span class="kicker">Flavor War</span>
+        <h2>The court decides what drops next.</h2>
+        <p>Vote for the flavor you want to see in the next limited drop. The winner gets crowned.</p>
+      </div>
+      <div class="vote-arena reveal">
+        <article class="vote-card" data-flavor="banana">
+          <div class="vote-art banana-art" aria-hidden="true"></div>
+          <h3>Banana Pudding Throne</h3>
+          <p>Layered banana cream, vanilla wafer crumble, whipped crown finish.</p>
+          <button class="vote-btn button primary shimmer" id="voteBanana">Cast Your Vote</button>
+          <div class="vote-meter">
+            <div class="vote-bar-track">
+              <div class="vote-fill banana-fill" id="bananaBar"></div>
+            </div>
+            <span class="vote-pct" id="bananaPct">0%</span>
+          </div>
+        </article>
+        <div class="vote-vs" aria-hidden="true">
+          <div class="vs-glow"></div>
+          <span class="vs-crown">&#9819;</span>
+          <span class="vs-text">VS</span>
+        </div>
+        <article class="vote-card" data-flavor="strawberry">
+          <div class="vote-art strawberry-art" aria-hidden="true"></div>
+          <h3>Strawberry Shortcake Queen</h3>
+          <p>Strawberry cream, shortcake crumble, berry glaze, gold sugar crown.</p>
+          <button class="vote-btn button primary shimmer" id="voteStrawberry">Cast Your Vote</button>
+          <div class="vote-meter">
+            <div class="vote-bar-track">
+              <div class="vote-fill strawberry-fill" id="strawberryBar"></div>
+            </div>
+            <span class="vote-pct" id="strawberryPct">0%</span>
+          </div>
+        </article>
+      </div>
+      <p class="vote-verdict" id="voteVerdict" aria-live="polite"></p>
+    </section>
+
+    <!-- ═══ CUSTOMER REVIEWS ═══ -->
+    <section class="section-pad reviews-section" id="reviews">
+      <div class="section-title reveal">
+        <span class="kicker">Royal Reactions</span>
+        <h2>What the court is saying.</h2>
+      </div>
+      <div class="reviews-grid">
+        <article class="review-card reveal">
+          <div class="review-inner">
+            <div class="review-front">
+              <div class="review-stars">&#9819;&#9819;&#9819;&#9819;&#9819;</div>
+              <blockquote>&ldquo;I should&rsquo;ve ordered two boxes. The Cookies &amp; Cream Castle is elite.&rdquo;</blockquote>
+              <cite>&mdash; Crown Club Customer, Marietta</cite>
+            </div>
+            <div class="review-back">
+              <div class="rb-crown">&#9819;</div>
+              <p class="rb-ordered">Ordered: Party Drop Box</p>
+              <p class="rb-flavor">Cookies &amp; Cream Castle</p>
+            </div>
+          </div>
+        </article>
+        <article class="review-card reveal">
+          <div class="review-inner">
+            <div class="review-front">
+              <div class="review-stars">&#9819;&#9819;&#9819;&#9819;&#9819;</div>
+              <blockquote>&ldquo;Key Lime Queen hit different. Best $7 I&rsquo;ve spent this year.&rdquo;</blockquote>
+              <cite>&mdash; Drop 002 Customer, Atlanta</cite>
+            </div>
+            <div class="review-back">
+              <div class="rb-crown">&#9819;</div>
+              <p class="rb-ordered">Ordered: Royal Sampler</p>
+              <p class="rb-flavor">Key Lime Queen</p>
+            </div>
+          </div>
+        </article>
+        <article class="review-card reveal">
+          <div class="review-inner">
+            <div class="review-front">
+              <div class="review-stars">&#9819;&#9819;&#9819;&#9819;&#9819;</div>
+              <blockquote>&ldquo;Got the 12-pack for my team. They finished all 12 before halftime.&rdquo;</blockquote>
+              <cite>&mdash; Youth Coach, Smyrna</cite>
+            </div>
+            <div class="review-back">
+              <div class="rb-crown">&#9819;</div>
+              <p class="rb-ordered">Ordered: Party Drop Box</p>
+              <p class="rb-flavor">Mix of all 3</p>
+            </div>
+          </div>
+        </article>
+        <article class="review-card reveal">
+          <div class="review-inner">
+            <div class="review-front">
+              <div class="review-stars">&#9819;&#9819;&#9819;&#9819;&#9819;</div>
+              <blockquote>&ldquo;My kids asked where pickup was before I even told them about the drop.&rdquo;</blockquote>
+              <cite>&mdash; Family Crown Box Customer</cite>
+            </div>
+            <div class="review-back">
+              <div class="rb-crown">&#9819;</div>
+              <p class="rb-ordered">Ordered: Family Crown Box</p>
+              <p class="rb-flavor">Vanilla Crown + Cookies</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══ FLAVOR QUIZ ═══ -->
+    <section class="section-pad quiz-section" id="quiz">
+      <div class="section-title reveal">
+        <span class="kicker">Find Your Flavor</span>
+        <h2>Which crown is yours?</h2>
+        <p>Four questions. One flavor. Royalty guaranteed.</p>
+      </div>
+      <div class="quiz-shell reveal" id="quizShell">
+        <div class="quiz-progress-bar">
+          <div id="quizProgressFill" style="width:0%"></div>
+        </div>
+        <div class="quiz-steps-wrap" id="quizStepsWrap">
+          <div class="quiz-step active" id="qs1">
+            <p class="qs-num">Question 1 of 4</p>
+            <h3>Sweet or tangy?</h3>
+            <div class="quiz-opts">
+              <button class="quiz-opt" data-q="1" data-v="sweet">&#127846; Sweet &amp; creamy</button>
+              <button class="quiz-opt" data-q="1" data-v="tangy">&#127819; Tangy &amp; bold</button>
+            </div>
+          </div>
+          <div class="quiz-step" id="qs2">
+            <p class="qs-num">Question 2 of 4</p>
+            <h3>Classic comfort or bold &amp; daring?</h3>
+            <div class="quiz-opts">
+              <button class="quiz-opt" data-q="2" data-v="classic">&#128081; Classic comfort</button>
+              <button class="quiz-opt" data-q="2" data-v="bold">&#9889; Bold &amp; daring</button>
+            </div>
+          </div>
+          <div class="quiz-step" id="qs3">
+            <p class="qs-num">Question 3 of 4</p>
+            <h3>Cookie-loaded or fruit-forward?</h3>
+            <div class="quiz-opts">
+              <button class="quiz-opt" data-q="3" data-v="cookie">&#127850; Cookie-loaded</button>
+              <button class="quiz-opt" data-q="3" data-v="fruit">&#127817; Fruit-forward</button>
+            </div>
+          </div>
+          <div class="quiz-step" id="qs4">
+            <p class="qs-num">Question 4 of 4</p>
+            <h3>One cup or a party box?</h3>
+            <div class="quiz-opts">
+              <button class="quiz-opt" data-q="4" data-v="solo">&#129345; Just me &mdash; one cup</button>
+              <button class="quiz-opt" data-q="4" data-v="party">&#127881; Party box for everyone</button>
+            </div>
+          </div>
+          <div class="quiz-result" id="quizResult" hidden>
+            <div class="qr-crown-big">&#9819;</div>
+            <p class="qr-verdict">YOUR CROWN IS</p>
+            <h3 class="qr-flavor" id="qrFlavor"></h3>
+            <p class="qr-desc" id="qrDesc"></p>
+            <div class="qr-actions">
+              <a class="button primary shimmer" href="#preorder">Add to Preorder</a>
+              <button class="button ghost" id="quizRetry">Try Again</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FAQ ═══ -->
+    <section class="section-pad faq-section" id="faq">
+      <div class="section-title reveal">
+        <span class="kicker">Questions</span>
+        <h2>Everything you need before the drop.</h2>
+      </div>
+      <div class="faq-list reveal">
+        <details class="faq-item">
+          <summary>How do I order?</summary>
+          <p>Use the preorder form at the bottom of this page. Fill in your name, contact, pack, flavor preference, and pickup window. Then copy your order summary and send it via Cash App, text, or email. We confirm every order personally.</p>
+        </details>
+        <details class="faq-item">
+          <summary>When is pickup?</summary>
+          <p>Current pickup windows are Friday 5&ndash;7&nbsp;PM and Saturday 12&ndash;2&nbsp;PM. Event and catering orders have separate pickup or delivery arrangements. Join the Crown Club for exact location announcements.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do you cater events?</summary>
+          <p>Yes. The Creamy Queen offers 50-cup party drops starting at $325 and 100-cup event drops starting at $650. We also do branded pop-up appearances for markets, schools, churches, gyms, and corporate events. Use the preorder form or email us directly.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How long do cups last?</summary>
+          <p>The 8&nbsp;oz cups stay fresh in the freezer for up to two weeks. Best enjoyed within the first 3&ndash;4 days for peak flavor and texture. Keep lids sealed until serving.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do you offer dairy-free options?</summary>
+          <p>Not yet &mdash; but dairy-free and vegan crowns are on the roadmap. Join the Crown Club to be first to know when dairy-free drops launch.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What allergens are included?</summary>
+          <p>Current flavors contain milk and may contain wheat/gluten (cookie crumble). Please contact us before ordering if you have specific allergen concerns. We are happy to discuss options for your situation.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is there a loyalty program?</summary>
+          <p>Yes &mdash; the Crown Club. Join via the Drop Alert section above. Buy 8 cups across any drops and receive one Crown Cup free. Crown Club members also get early drop access, birthday rewards, and catering discounts.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ═══ COMING DROPS MARQUEE ═══ -->
     <section class="section-pad next-flavors">
       <div class="section-title reveal">
         <span class="kicker">Coming Drops</span>
@@ -295,6 +778,7 @@
           <span>Caramel Praline Crown</span>
           <span>Blueberry Cheesecake Queen</span>
           <span>Strawberry Key Lime Crown</span>
+          <span>Birthday Cake Palace</span>
           <span>Strawberry Shortcake Queen</span>
           <span>Banana Pudding Throne</span>
           <span>Peach Cobbler Crown</span>
@@ -303,17 +787,18 @@
           <span>Caramel Praline Crown</span>
           <span>Blueberry Cheesecake Queen</span>
           <span>Strawberry Key Lime Crown</span>
+          <span>Birthday Cake Palace</span>
         </div>
       </div>
     </section>
 
+    <!-- ═══ PREORDER ═══ -->
     <section class="section-pad preorder-section" id="preorder">
       <div class="section-title reveal">
         <span class="kicker">Preorder Builder</span>
         <h2>Reserve the crown before it sells out.</h2>
         <p>
-          Use this as the first order flow. Replace the placeholder email, phone,
-          Cash App, or payment link with your real order details before launch.
+          Fill out your order below. Copy the summary and send it via your preferred payment method.
         </p>
       </div>
 
@@ -381,7 +866,10 @@
           </label>
 
           <div class="form-actions">
-            <button class="button primary" type="button" id="copyOrder">Copy Order Summary</button>
+            <button class="button primary shimmer seal-btn" type="button" id="copyOrder">
+              <span class="seal-text">Seal My Crown Order</span>
+              <span class="seal-icon">&#9819;</span>
+            </button>
             <a class="button ghost" id="emailOrder" href="#">Email Order</a>
           </div>
 
