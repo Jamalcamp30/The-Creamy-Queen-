@@ -407,13 +407,8 @@ function launchConfetti() {
     } catch (e) {}
     renderVotes();
     /* Disable both buttons */
-    [bBtn, sBtn].forEach(function (btn) {
-      if (btn) { btn.disabled = true; btn.textContent = btn.id === 'vote' + (flavor === 'banana' ? 'Banana' : 'Strawberry') ? 'Voted ♛' : 'Voted'; }
-    });
-    if (bBtn) bBtn.disabled = true;
-    if (sBtn) sBtn.disabled = true;
-    if (bBtn) bBtn.textContent = flavor === 'banana' ? 'Voted ♛' : 'Voted';
-    if (sBtn) sBtn.textContent = flavor === 'strawberry' ? 'Voted ♛' : 'Voted';
+    if (bBtn) { bBtn.disabled = true; bBtn.textContent = flavor === 'banana' ? 'Voted \u265b' : 'Voted'; }
+    if (sBtn) { sBtn.disabled = true; sBtn.textContent = flavor === 'strawberry' ? 'Voted \u265b' : 'Voted'; }
 
     var winner = votes.banana >= votes.strawberry ? 'Banana Pudding Throne' : 'Strawberry Shortcake Queen';
     if (verdict) {
@@ -623,7 +618,7 @@ function launchConfetti() {
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(summary).then(function () {
-        showToast('Order sealed & copied to clipboard. \u9819');
+        showToast('Order sealed & copied to clipboard. \u265b');
       }).catch(function () {
         fallbackCopy(summary);
       });
@@ -638,7 +633,7 @@ function launchConfetti() {
     ta.style.cssText = 'position:fixed;left:-9999px;top:0;';
     document.body.appendChild(ta);
     ta.select();
-    try { document.execCommand('copy'); showToast('Order sealed & copied. \u9819'); }
+    try { document.execCommand('copy'); showToast('Order sealed & copied. \u265b'); }
     catch (e) { showToast('Could not copy automatically.'); }
     document.body.removeChild(ta);
   }
