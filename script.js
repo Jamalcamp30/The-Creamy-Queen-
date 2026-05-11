@@ -819,7 +819,9 @@ function launchConfetti() {
 
   function syncSizes() {
     sizeBtns.forEach(function (b) {
-      b.classList.toggle('active', parseInt(b.dataset.size, 10) === capacity);
+      var active = parseInt(b.dataset.size, 10) === capacity;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-selected', active ? 'true' : 'false');
     });
   }
   function render() {
@@ -1064,9 +1066,19 @@ function launchConfetti() {
     if (mys) lines.push(['+ Mystery Cup', '$7']);
     lines.push(['TOTAL', '$' + tot]);
     if (rrLines) {
-      rrLines.innerHTML = lines.map(function (l) {
-        return '<li><span>' + l[0] + '</span><b>' + l[1] + '</b></li>';
-      }).join('');
+      /* Build receipt lines via DOM nodes (no innerHTML) so user-supplied
+         values like name/flavor/notes can never be reinterpreted as HTML. */
+      rrLines.textContent = '';
+      lines.forEach(function (l) {
+        var li = document.createElement('li');
+        var sp = document.createElement('span');
+        sp.textContent = l[0];
+        var bv = document.createElement('b');
+        bv.textContent = l[1];
+        li.appendChild(sp);
+        li.appendChild(bv);
+        rrLines.appendChild(li);
+      });
     }
     if (rrCupNum) rrCupNum.textContent = String(CQ.sold + 1).padStart(3, '0');
     if (rrBatch)  rrBatch.textContent  = '003';
