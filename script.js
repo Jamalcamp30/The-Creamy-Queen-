@@ -655,3 +655,456 @@ function launchConfetti() {
   }, { threshold: 0.1 });
   els.forEach(function (el) { obs.observe(el); });
 })();
+
+/* ═══════════════════════════════════════════════════════════
+   SIGNATURE UPGRADE LAYER — 25 animations + 25 features
+═══════════════════════════════════════════════════════════ */
+
+/* ── 16. ROYAL DROP BOARD — live mirror of CQ state ─────── */
+(function () {
+  var claimed   = document.getElementById('dbClaimed');
+  var bar       = document.getElementById('dbClaimedBar');
+  var nextCup   = document.getElementById('dbNextCup');
+  var minutes   = document.getElementById('dbMinutes');
+  var predict   = document.getElementById('dbPredictText');
+  var batch     = document.getElementById('dbBatch');
+  var fcRem     = document.getElementById('fcRemaining');
+  if (!claimed) return;
+
+  var remaining = CQ.total - CQ.sold;
+  claimed.textContent = CQ.sold;
+  var pct = Math.min(100, Math.round((CQ.sold / CQ.total) * 100));
+  setTimeout(function () { if (bar) bar.style.width = pct + '%'; }, 700);
+  if (nextCup) nextCup.textContent = String(CQ.sold + 1).padStart(3, '0');
+  if (fcRem)   fcRem.textContent   = remaining;
+  if (batch)   batch.textContent   = '003';
+
+  /* Sellout prediction: assume avg cup-claim ~1.3 min */
+  if (minutes && predict) {
+    var est = Math.max(2, Math.round(remaining * 1.3));
+    minutes.textContent = est;
+    if (remaining <= 0) predict.textContent = 'crown closed';
+    else if (remaining <= CQ.urgencyAt) predict.textContent = 'critical — moving fast';
+  }
+
+  /* VIP early access timer (12 minute head-start countdown) */
+  var vip = document.getElementById('dbVipTimer');
+  if (vip) {
+    var endsAt = sessionStorage.getItem('cq_vip_ends');
+    if (!endsAt) {
+      endsAt = Date.now() + 12 * 60 * 1000;
+      sessionStorage.setItem('cq_vip_ends', endsAt);
+    } else { endsAt = parseInt(endsAt, 10); }
+    function tickVip() {
+      var diff = endsAt - Date.now();
+      if (diff <= 0) { vip.textContent = 'LIVE NOW'; vip.style.color = '#f7d46b'; return; }
+      var s = Math.floor(diff / 1000);
+      var m = Math.floor(s / 60); s %= 60;
+      vip.textContent = m + ':' + String(s).padStart(2, '0');
+      setTimeout(tickVip, 1000);
+    }
+    tickVip();
+  }
+})();
+
+/* ── 17. QUEEN'S SPOTLIGHT (follows hero CTA) ───────────── */
+(function () {
+  var spot = document.getElementById('queenSpotlight');
+  var cta  = document.getElementById('heroCtaBtn');
+  if (!spot || !cta) return;
+
+  function position() {
+    var r = cta.getBoundingClientRect();
+    /* only show while hero CTA is in viewport */
+    if (r.bottom < 0 || r.top > window.innerHeight) {
+      spot.classList.remove('active'); return;
+    }
+    spot.classList.add('active');
+    spot.style.left = (r.left + r.width / 2) + 'px';
+    spot.style.top  = (r.top  + r.height / 2) + 'px';
+  }
+  position();
+  window.addEventListener('scroll', position, { passive: true });
+  window.addEventListener('resize', position);
+})();
+
+/* ── 18. 3D FLAVOR CARD TILT ────────────────────────────── */
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var cards = document.querySelectorAll('.tilt-card');
+  cards.forEach(function (card) {
+    card.addEventListener('mousemove', function (e) {
+      var r = card.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width;
+      var py = (e.clientY - r.top)  / r.height;
+      var rx = (py - 0.5) * -8;
+      var ry = (px - 0.5) *  10;
+      card.style.transform = 'perspective(900px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateY(-4px)';
+    });
+    card.addEventListener('mouseleave', function () {
+      card.style.transform = '';
+    });
+  });
+})();
+
+/* ── 19. CLAIM A CUP (flavor card -> flavor passport stamp) */
+(function () {
+  var stamps   = document.querySelectorAll('.passport-stamp');
+  var reward   = document.getElementById('passportReward');
+  var stamped  = {};
+  try { stamped = JSON.parse(localStorage.getItem('cq_passport') || '{}') || {}; } catch (e) {}
+
+  function refresh() {
+    var count = 0;
+    stamps.forEach(function (s) {
+      var name = s.dataset.stamp;
+      if (stamped[name]) { s.classList.add('stamped'); count++; }
+    });
+    if (reward) {
+      if (count >= 3) {
+        reward.textContent = '★ All 3 crowns stamped — Secret menu cup unlocked at next pickup.';
+        reward.classList.add('unlocked');
+      } else {
+        reward.textContent = count + ' / 3 crowns stamped. Royalty is patient.';
+      }
+    }
+  }
+
+  function stamp(name) {
+    if (stamped[name]) return;
+    stamped[name] = Date.now();
+    try { localStorage.setItem('cq_passport', JSON.stringify(stamped)); } catch (e) {}
+    refresh();
+    showToast('Passport stamped: ' + name + ' ♛');
+  }
+
+  document.querySelectorAll('.card-claim').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btn.classList.add('popping');
+      setTimeout(function () { btn.classList.remove('popping'); }, 650);
+      var flavor = btn.dataset.flavor;
+      stamp(flavor);
+      /* prefill preorder */
+      var flavorSelect = document.getElementById('flavorSelect');
+      if (flavorSelect) {
+        for (var i = 0; i < flavorSelect.options.length; i++) {
+          if (flavorSelect.options[i].text.replace(/&amp;/g,'&').trim() === flavor.replace(/&amp;/g,'&').trim()) {
+            flavorSelect.selectedIndex = i;
+            flavorSelect.dispatchEvent(new Event('change'));
+            break;
+          }
+        }
+      }
+    });
+  });
+
+  refresh();
+})();
+
+/* ── 20. BUILD-A-PACK ────────────────────────────────────── */
+(function () {
+  var sizeBtns = document.querySelectorAll('.bap-size');
+  var addBtns  = document.querySelectorAll('.bap-add');
+  var resetBtn = document.getElementById('bapReset');
+  var box      = document.getElementById('bapBox');
+  var inner    = document.getElementById('bapBoxInner');
+  var filledEl = document.getElementById('bapFilled');
+  var capEl    = document.getElementById('bapCap');
+  var fullEl   = document.getElementById('bapFull');
+  var emptyEl  = document.getElementById('bapEmpty');
+  var toPre    = document.getElementById('bapToPreorder');
+  if (!box || !inner) return;
+
+  var capacity = 6, cups = [];
+
+  function syncSizes() {
+    sizeBtns.forEach(function (b) {
+      var active = parseInt(b.dataset.size, 10) === capacity;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+  }
+  function render() {
+    inner.innerHTML = '';
+    cups.forEach(function (c) {
+      var el = document.createElement('div');
+      el.className = 'bap-cup ' + c.color;
+      el.textContent = c.flavor.length > 14 ? c.flavor.split(' ')[0] : c.flavor.replace('&amp;', '&');
+      el.title = c.flavor;
+      inner.appendChild(el);
+    });
+    if (filledEl) filledEl.textContent = cups.length;
+    if (capEl)    capEl.textContent    = capacity;
+    box.dataset.size = capacity;
+    box.classList.toggle('has-cup', cups.length > 0);
+    if (fullEl) fullEl.hidden = cups.length < capacity;
+    if (emptyEl) emptyEl.style.display = cups.length === 0 ? '' : 'none';
+  }
+  function setSize(n) {
+    capacity = n;
+    if (cups.length > capacity) cups = cups.slice(0, capacity);
+    syncSizes();
+    render();
+  }
+
+  sizeBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () { setSize(parseInt(btn.dataset.size, 10)); });
+  });
+  addBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (cups.length >= capacity) {
+        showToast('Box is full — bump up the size or send to preorder.');
+        return;
+      }
+      cups.push({ flavor: btn.dataset.flavor, color: btn.dataset.color });
+      render();
+    });
+  });
+  if (resetBtn) resetBtn.addEventListener('click', function () { cups = []; render(); });
+
+  if (toPre) {
+    toPre.addEventListener('click', function (e) {
+      var packSelect = document.getElementById('packSelect');
+      if (packSelect) {
+        var target = capacity === 2 ? 'Single Crown Cup|7'
+                   : capacity === 4 ? 'Royal Sampler|18'
+                   : capacity === 6 ? 'Family Crown Box|38'
+                   : 'Party Drop Box|75';
+        for (var i = 0; i < packSelect.options.length; i++) {
+          if (packSelect.options[i].value === target) { packSelect.selectedIndex = i; break; }
+        }
+        packSelect.dispatchEvent(new Event('change'));
+      }
+      var notes = document.getElementById('notes');
+      if (notes && cups.length) {
+        var flavors = cups.map(function (c) { return c.flavor.replace('&amp;','&'); }).join(', ');
+        notes.value = (notes.value ? notes.value + '\n' : '') + 'Build-A-Pack: ' + flavors;
+        notes.dispatchEvent(new Event('input'));
+      }
+    });
+  }
+
+  /* default to 6 */
+  setSize(6);
+})();
+
+/* ── 21. CATERING CROWN CALCULATOR ───────────────────────── */
+(function () {
+  var slider = document.getElementById('ccGuests');
+  var out    = document.getElementById('ccGuestsOut');
+  var cMin   = document.getElementById('ccCups');
+  var cMax   = document.getElementById('ccCupsMax');
+  var pack   = document.getElementById('ccPack');
+  var price  = document.getElementById('ccPrice');
+  var btn    = document.getElementById('ccBookBtn');
+  if (!slider) return;
+
+  function update() {
+    var g = parseInt(slider.value, 10);
+    /* ~1.2 cups per guest (everyone comes back for seconds) */
+    var lo = Math.ceil(g * 1.1);
+    var hi = Math.ceil(g * 1.4);
+    if (out)  out.value = g + ' guests';
+    if (cMin) cMin.textContent = lo;
+    if (cMax) cMax.textContent = hi;
+    var p = '', pr = '';
+    if (hi <= 12)     { p = 'Party Drop Box';       pr = '$75'; }
+    else if (hi <= 50){ p = '50-Cup Party Drop';    pr = '$325+'; }
+    else if (hi <= 100){p = '100-Cup Event Drop';   pr = '$650+'; }
+    else              { p = 'Custom Event Drop';    pr = '$' + (Math.round(hi * 6.5)) + '+'; }
+    if (pack) pack.textContent = p;
+    if (price) price.textContent = pr;
+
+    var fillPct = ((g - parseInt(slider.min,10)) / (parseInt(slider.max,10) - parseInt(slider.min,10))) * 100;
+    slider.style.setProperty('--ccfill', fillPct + '%');
+
+    if (btn) {
+      btn.onclick = function () {
+        var notes = document.getElementById('notes');
+        if (notes) {
+          notes.value = 'Catering inquiry: ' + g + ' guests, ~' + lo + '-' + hi + ' cups, ' + p + '.';
+          notes.dispatchEvent(new Event('input'));
+        }
+        var pickup = document.getElementById('pickupSelect');
+        if (pickup) {
+          for (var i = 0; i < pickup.options.length; i++) {
+            if (pickup.options[i].value.toLowerCase().indexOf('event') > -1) {
+              pickup.selectedIndex = i; pickup.dispatchEvent(new Event('change')); break;
+            }
+          }
+        }
+        var packSelect = document.getElementById('packSelect');
+        if (packSelect) {
+          for (var j = 0; j < packSelect.options.length; j++) {
+            if (packSelect.options[j].text.indexOf(p.split('-')[0]) > -1 || packSelect.options[j].text.indexOf(p) > -1) {
+              packSelect.selectedIndex = j; packSelect.dispatchEvent(new Event('change')); break;
+            }
+          }
+        }
+      };
+    }
+  }
+  slider.addEventListener('input', update);
+  update();
+})();
+
+/* ── 22. HALL OF FAME — "Bring It Back" voting ──────────── */
+(function () {
+  var buttons = document.querySelectorAll('.hof-bring');
+  if (!buttons.length) return;
+  var stored = {};
+  try { stored = JSON.parse(localStorage.getItem('cq_bring_back') || '{}') || {}; } catch (e) {}
+  var voted = {};
+  try { voted = JSON.parse(localStorage.getItem('cq_bring_voted') || '{}') || {}; } catch (e) {}
+
+  /* simulated base counts for social-proof effect */
+  var seeds = { 'Cookies &amp; Cream Castle': 142, 'Peach Cobbler Crown': 89, 'Banana Pudding Throne': 73, 'Red Velvet Royalty': 51 };
+
+  buttons.forEach(function (btn) {
+    var flavor = btn.dataset.flavor;
+    var countEl = btn.querySelector('.hbb-count');
+    var count = (stored[flavor] != null) ? stored[flavor] : (seeds[flavor] || 0);
+    if (countEl) countEl.textContent = count;
+    if (voted[flavor]) btn.classList.add('voted');
+
+    btn.addEventListener('click', function () {
+      if (voted[flavor]) { showToast('Already voted to bring back ' + flavor.replace('&amp;','&')); return; }
+      count++;
+      stored[flavor] = count;
+      voted[flavor]  = 1;
+      try {
+        localStorage.setItem('cq_bring_back',  JSON.stringify(stored));
+        localStorage.setItem('cq_bring_voted', JSON.stringify(voted));
+      } catch (e) {}
+      if (countEl) countEl.textContent = count;
+      btn.classList.add('voted');
+      showToast('Vote registered for ' + flavor.replace('&amp;','&') + ' ♛');
+    });
+  });
+})();
+
+/* ── 23. SCOREBOARD — count-up animation ─────────────────── */
+(function () {
+  var tiles = document.querySelectorAll('.sb-tile [data-counter]');
+  if (!tiles.length) return;
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      var target = parseInt(el.dataset.counter, 10) || 0;
+      var suffix = el.dataset.suffix || '';
+      var start = Date.now(); var dur = 1400;
+      function step() {
+        var p = Math.min(1, (Date.now() - start) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      }
+      step();
+      obs.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  tiles.forEach(function (t) { obs.observe(t); });
+})();
+
+/* ── 24. CUP NUMBERING + MYSTERY CUP + ROYAL RECEIPT ────── */
+(function () {
+  var packSelect     = document.getElementById('packSelect');
+  var quantitySelect = document.getElementById('quantitySelect');
+  var flavorSelect   = document.getElementById('flavorSelect');
+  var pickupSelect   = document.getElementById('pickupSelect');
+  var mystery        = document.getElementById('mysteryCup');
+  var summaryTotal   = document.getElementById('summaryTotal');
+  var summaryPrice   = document.getElementById('summaryPrice');
+  var summaryCupNum  = document.getElementById('summaryCupNum');
+  var summaryBatch   = document.getElementById('summaryBatch');
+  var summaryMysRow  = document.getElementById('summaryMysteryRow');
+
+  function recalc() {
+    var parts = (packSelect && packSelect.value.split('|')) || [];
+    var basePrice = parseInt(parts[1] || '0', 10);
+    var qty       = parseInt((quantitySelect && quantitySelect.value) || '1', 10);
+    var tot       = basePrice * qty;
+    if (mystery && mystery.checked) { tot += 7; if (summaryMysRow) summaryMysRow.hidden = false; }
+    else { if (summaryMysRow) summaryMysRow.hidden = true; }
+    if (summaryTotal) summaryTotal.textContent = '$' + tot;
+    if (summaryPrice) summaryPrice.textContent = '$' + basePrice;
+    if (summaryCupNum) summaryCupNum.textContent = String(CQ.sold + 1).padStart(3, '0');
+    if (summaryBatch)  summaryBatch.textContent  = '003';
+  }
+
+  [packSelect, quantitySelect, flavorSelect, pickupSelect, mystery].forEach(function (el) {
+    if (el) el.addEventListener('change', recalc);
+  });
+  recalc();
+
+  /* Royal receipt slide-up after seal */
+  var copyBtn  = document.getElementById('copyOrder');
+  var receipt  = document.getElementById('royalReceipt');
+  var rrLines  = document.getElementById('rrLines');
+  var rrCupNum = document.getElementById('rrCupNum');
+  var rrBatch  = document.getElementById('rrBatch');
+  if (!copyBtn || !receipt) return;
+
+  copyBtn.addEventListener('click', function () {
+    var parts = (packSelect && packSelect.value.split('|')) || [];
+    var packName  = parts[0] || '';
+    var basePrice = parseInt(parts[1] || '0', 10);
+    var qty       = parseInt((quantitySelect && quantitySelect.value) || '1', 10);
+    var flavor    = (flavorSelect && flavorSelect.value) || '';
+    var pickup    = (pickupSelect && pickupSelect.value) || '';
+    var name      = (document.getElementById('customerName')    || {}).value || '—';
+    var mys       = mystery && mystery.checked;
+    var tot       = basePrice * qty + (mys ? 7 : 0);
+    var lines = [
+      ['Name',     name],
+      ['Pack',     packName],
+      ['Qty',      String(qty)],
+      ['Flavor',   flavor],
+      ['Pickup',   pickup]
+    ];
+    if (mys) lines.push(['+ Mystery Cup', '$7']);
+    lines.push(['TOTAL', '$' + tot]);
+    if (rrLines) {
+      /* Build receipt lines via DOM nodes (no innerHTML) so user-supplied
+         values like name/flavor/notes can never be reinterpreted as HTML. */
+      rrLines.textContent = '';
+      lines.forEach(function (l) {
+        var li = document.createElement('li');
+        var sp = document.createElement('span');
+        sp.textContent = l[0];
+        var bv = document.createElement('b');
+        bv.textContent = l[1];
+        li.appendChild(sp);
+        li.appendChild(bv);
+        rrLines.appendChild(li);
+      });
+    }
+    if (rrCupNum) rrCupNum.textContent = String(CQ.sold + 1).padStart(3, '0');
+    if (rrBatch)  rrBatch.textContent  = '003';
+    receipt.hidden = false;
+    /* re-trigger slide-up animation */
+    receipt.style.animation = 'none';
+    void receipt.offsetWidth;
+    receipt.style.animation = '';
+    /* sparkle burst */
+    launchConfetti();
+  });
+})();
+
+/* ── 25. SOLD-OUT CROWN LOCK + FINAL CUP MOMENT ─────────── */
+(function () {
+  /* Apply crown-lock to vault cards if they ever sell out (visual demo) */
+  var remaining = CQ.total - CQ.sold;
+  if (remaining <= 0 || CQ.dropIsSoldOut) {
+    document.querySelectorAll('.vault-card').forEach(function (c) {
+      c.classList.add('crown-locked');
+    });
+    var overlay = document.getElementById('finalCupOverlay');
+    if (overlay) {
+      overlay.classList.add('show');
+      /* hide after animation */
+      setTimeout(function () { overlay.classList.remove('show'); }, 6200);
+    }
+  }
+})();

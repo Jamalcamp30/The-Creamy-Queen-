@@ -39,6 +39,31 @@
   <!-- ═══ CONFETTI CONTAINER ═══ -->
   <div class="confetti-container" id="confettiContainer" aria-hidden="true"></div>
 
+  <!-- ═══ ROYAL DRIP BORDER (animated edges) ═══ -->
+  <div class="royal-drip-border" aria-hidden="true">
+    <div class="rdb-edge rdb-top"></div>
+    <div class="rdb-edge rdb-bottom"></div>
+    <div class="rdb-drip" style="--rd-left:8%; --rd-delay:0s;"></div>
+    <div class="rdb-drip" style="--rd-left:22%; --rd-delay:1.4s;"></div>
+    <div class="rdb-drip" style="--rd-left:38%; --rd-delay:.7s;"></div>
+    <div class="rdb-drip" style="--rd-left:54%; --rd-delay:2.1s;"></div>
+    <div class="rdb-drip" style="--rd-left:71%; --rd-delay:.4s;"></div>
+    <div class="rdb-drip" style="--rd-left:86%; --rd-delay:1.7s;"></div>
+    <div class="rdb-drip" style="--rd-left:94%; --rd-delay:2.6s;"></div>
+  </div>
+
+  <!-- ═══ QUEEN'S SPOTLIGHT (follows hero CTA) ═══ -->
+  <div class="queen-spotlight" id="queenSpotlight" aria-hidden="true"></div>
+
+  <!-- ═══ FINAL CUP MOMENT OVERLAY (last cup claimed) ═══ -->
+  <div class="final-cup-overlay" id="finalCupOverlay" aria-hidden="true">
+    <div class="fcm-inner">
+      <div class="fcm-crown">&#9819;</div>
+      <h2>THE QUEEN HAS LEFT<br>THE FREEZER.</h2>
+      <p>Sold out. Join the Crown Club for the next drop.</p>
+    </div>
+  </div>
+
   <!-- ═══ URGENCY BANNER ═══ -->
   <div class="urgency-banner" id="urgencyBanner" aria-live="polite"></div>
 
@@ -75,9 +100,10 @@
     <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
 
     <nav class="nav" id="nav">
-      <a href="#drop">The Drop</a>
+      <a href="#dropboard">Drop Board</a>
       <a href="#flavors">Flavors</a>
       <a href="#packs">Packs</a>
+      <a href="#build-a-pack">Build-A-Pack</a>
       <a href="#events">Events</a>
       <a href="#crown-club">Crown Club</a>
       <a href="#preorder">Preorder</a>
@@ -168,6 +194,59 @@
       </div>
     </section>
 
+    <!-- ═══ ROYAL DROP BOARD (live dashboard) ═══ -->
+    <section class="section-pad drop-board-section" id="dropboard" aria-label="Royal Drop Board">
+      <div class="drop-board reveal">
+        <div class="db-head">
+          <span class="db-crown">&#9819;</span>
+          <div>
+            <span class="kicker">The Royal Drop Board</span>
+            <h2>Batch <span id="dbBatch">003</span> is moving. Live.</h2>
+          </div>
+          <span class="db-pulse" id="dbPulse" aria-hidden="true"><i></i><i></i><i></i></span>
+        </div>
+
+        <div class="db-grid">
+          <div class="db-tile">
+            <small>Cups Claimed</small>
+            <strong><span id="dbClaimed">42</span><i>/60</i></strong>
+            <span class="db-bar"><i id="dbClaimedBar" style="width:70%"></i></span>
+          </div>
+          <div class="db-tile">
+            <small>Fastest Selling</small>
+            <strong id="dbFastest">Cookies &amp; Cream</strong>
+            <span class="db-meta">Champion of Batch 002</span>
+          </div>
+          <div class="db-tile predict">
+            <small>Sellout Prediction</small>
+            <strong><span id="dbMinutes">38</span> min</strong>
+            <span class="db-meta" id="dbPredictText">at current claim rate</span>
+          </div>
+          <div class="db-tile">
+            <small>Pickup Window</small>
+            <strong>Fri 5&ndash;7 PM</strong>
+            <span class="db-meta">Atlanta Area</span>
+          </div>
+          <div class="db-tile">
+            <small>Crown Club Early Access</small>
+            <strong id="dbVipTimer">12:00</strong>
+            <span class="db-meta">before public drop</span>
+          </div>
+          <div class="db-tile">
+            <small>Next Cup Number</small>
+            <strong>Cup <span id="dbNextCup">043</span><i>/060</i></strong>
+            <span class="db-meta">collect your batch</span>
+          </div>
+        </div>
+
+        <p class="db-story" id="dbStory">
+          <strong>Batch 003 Story &mdash;</strong>
+          Built for a hot May night. Creamy vanilla, crushed cookie texture, and a bright key lime finish that lingers.
+          When the cups are gone, the crown closes.
+        </p>
+      </div>
+    </section>
+
     <!-- DRIP DIVIDER 1 -->
     <div class="drip-divider" role="separator" aria-hidden="true">
       <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -234,7 +313,9 @@
       </div>
 
       <div class="flavor-grid">
-        <article class="flavor-card vanilla reveal" data-cursor="vanilla">
+        <article class="flavor-card vanilla reveal tilt-card" data-cursor="vanilla">
+          <span class="silk-ribbon" aria-hidden="true"></span>
+          <span class="card-fog" aria-hidden="true"></span>
           <div class="flavor-art">
             <span class="mini-cup"></span>
             <span class="hover-crown" aria-hidden="true">&#9819;</span>
@@ -248,10 +329,23 @@
             <li>Vanilla glaze</li>
             <li>Crown topping</li>
           </ul>
+          <div class="trading-stats" aria-label="Flavor stats">
+            <span><i>Sweetness</i><b class="ts-bar"><i style="--w:88%"></i></b></span>
+            <span><i>Texture</i><b class="ts-bar"><i style="--w:74%"></i></b></span>
+            <span><i>Royal Score</i><b class="ts-bar"><i style="--w:95%"></i></b></span>
+            <span class="ts-pair">Best Pairing: warm cookie</span>
+          </div>
           <strong class="price">$7</strong>
+          <button class="card-claim" data-flavor="Vanilla Crown" type="button">Claim Vanilla Crown</button>
         </article>
 
-        <article class="flavor-card cookies reveal" data-cursor="cookies">
+        <article class="flavor-card cookies reveal tilt-card" data-cursor="cookies">
+          <span class="cookie-crumbs" aria-hidden="true">
+            <i style="--cl:12%; --cd:0s"></i><i style="--cl:28%; --cd:.6s"></i>
+            <i style="--cl:46%; --cd:1.3s"></i><i style="--cl:62%; --cd:.3s"></i>
+            <i style="--cl:78%; --cd:.9s"></i><i style="--cl:90%; --cd:1.6s"></i>
+          </span>
+          <span class="card-fog" aria-hidden="true"></span>
           <div class="flavor-art">
             <span class="mini-cup"></span>
             <span class="hover-crown" aria-hidden="true">&#9819;</span>
@@ -265,10 +359,19 @@
             <li>Chocolate ribbon</li>
             <li>Cookie dust</li>
           </ul>
+          <div class="trading-stats" aria-label="Flavor stats">
+            <span><i>Sweetness</i><b class="ts-bar"><i style="--w:82%"></i></b></span>
+            <span><i>Texture</i><b class="ts-bar"><i style="--w:96%"></i></b></span>
+            <span><i>Royal Score</i><b class="ts-bar"><i style="--w:98%"></i></b></span>
+            <span class="ts-pair">4&times; Sellout Champion</span>
+          </div>
           <strong class="price">$7</strong>
+          <button class="card-claim" data-flavor="Cookies &amp; Cream Castle" type="button">Claim Cookies &amp; Cream</button>
         </article>
 
-        <article class="flavor-card lime reveal" data-cursor="lime">
+        <article class="flavor-card lime reveal tilt-card lime-pulse" data-cursor="lime">
+          <span class="lime-glow" aria-hidden="true"></span>
+          <span class="card-fog" aria-hidden="true"></span>
           <div class="flavor-art">
             <span class="mini-cup"></span>
             <span class="hover-crown" aria-hidden="true">&#9819;</span>
@@ -282,8 +385,30 @@
             <li>Whipped finish</li>
             <li>Lime zest</li>
           </ul>
+          <div class="trading-stats" aria-label="Flavor stats">
+            <span><i>Sweetness</i><b class="ts-bar"><i style="--w:64%"></i></b></span>
+            <span><i>Tang</i><b class="ts-bar"><i style="--w:92%"></i></b></span>
+            <span><i>Royal Score</i><b class="ts-bar"><i style="--w:91%"></i></b></span>
+            <span class="ts-pair">Best Pairing: graham cracker</span>
+          </div>
           <strong class="price">$7</strong>
+          <button class="card-claim" data-flavor="Key Lime Queen" type="button">Claim Key Lime</button>
         </article>
+      </div>
+
+      <!-- ═══ FLAVOR PASSPORT (collect stamps) ═══ -->
+      <div class="passport reveal" id="passport" aria-label="Flavor Passport">
+        <div class="passport-head">
+          <span class="kicker">Flavor Passport</span>
+          <h3>Collect every crown. Unlock the secret reward.</h3>
+          <p>Tap a flavor above to stamp your passport. Try all three to unlock a secret menu cup at your next pickup.</p>
+        </div>
+        <div class="passport-grid" id="passportGrid">
+          <div class="passport-stamp" data-stamp="Vanilla Crown"><span>&#9819;</span><b>Vanilla<br>Crown</b></div>
+          <div class="passport-stamp" data-stamp="Cookies &amp; Cream Castle"><span>&#9819;</span><b>Cookies &amp;<br>Cream</b></div>
+          <div class="passport-stamp" data-stamp="Key Lime Queen"><span>&#9819;</span><b>Key Lime<br>Queen</b></div>
+        </div>
+        <p class="passport-reward" id="passportReward">0 / 3 crowns stamped. Royalty is patient.</p>
       </div>
     </section>
 
@@ -335,6 +460,47 @@
       </div>
     </section>
 
+    <!-- ═══ BUILD-A-PACK EXPERIENCE ═══ -->
+    <section class="section-pad bap-section" id="build-a-pack">
+      <div class="section-title reveal">
+        <span class="kicker">Build-A-Pack</span>
+        <h2>Custom-build your crown box.</h2>
+        <p>Pick a size. Tap to fill it. The box loads in real time.</p>
+      </div>
+      <div class="bap-shell reveal">
+        <div class="bap-controls">
+          <div class="bap-sizes" role="tablist" aria-label="Box size">
+            <button class="bap-size" data-size="2" role="tab" aria-selected="false">2-Pack <small>$14</small></button>
+            <button class="bap-size" data-size="4" role="tab" aria-selected="false">4-Pack <small>$26</small></button>
+            <button class="bap-size active" data-size="6" role="tab" aria-selected="true">6-Pack <small>$38</small></button>
+            <button class="bap-size" data-size="12" role="tab" aria-selected="false">12-Pack <small>$75</small></button>
+          </div>
+          <div class="bap-flavors">
+            <button class="bap-add" data-flavor="Vanilla Crown" data-color="vanilla">+ Vanilla Crown</button>
+            <button class="bap-add" data-flavor="Cookies &amp; Cream Castle" data-color="cookies">+ Cookies &amp; Cream</button>
+            <button class="bap-add" data-flavor="Key Lime Queen" data-color="lime">+ Key Lime Queen</button>
+            <button class="bap-add mystery" data-flavor="Queen&rsquo;s Choice Mystery" data-color="mystery">+ Queen&rsquo;s Choice Mystery</button>
+          </div>
+          <div class="bap-status">
+            <span><b id="bapFilled">0</b> of <b id="bapCap">2</b> cups</span>
+            <button class="bap-reset" id="bapReset" type="button">Reset Box</button>
+          </div>
+        </div>
+        <div class="bap-box-wrap">
+          <div class="bap-box" id="bapBox" data-size="2" aria-label="Custom box preview">
+            <div class="bap-box-inner" id="bapBoxInner"></div>
+            <div class="bap-box-lid" id="bapBoxLid">CREAMY QUEEN &nbsp;&#9819;</div>
+            <p class="bap-box-empty" id="bapEmpty">Tap a flavor to start your crown box.</p>
+            <div class="bap-box-full" id="bapFull" hidden>
+              <span>&#9819;</span>
+              <p>Box is full. Ready to claim.</p>
+              <a class="button primary shimmer" href="#preorder" id="bapToPreorder">Send to Preorder</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ═══ EVENTS ═══ -->
     <section class="section-pad events" id="events">
       <div class="section-title reveal">
@@ -367,6 +533,37 @@
           <p>A branded Creamy Queen setup for markets, festivals, tournaments, and private events.</p>
           <a href="#preorder">Book a Pop-Up</a>
         </article>
+      </div>
+
+      <!-- Catering Crown Calculator -->
+      <div class="catering-calc reveal" id="cateringCalc">
+        <div class="cc-head">
+          <span class="kicker">Catering Crown Calculator</span>
+          <h3>How many cups for your event?</h3>
+          <p>Enter your guest count. We&rsquo;ll recommend the right crown box, plus an extra for the royals who always come back for seconds.</p>
+        </div>
+        <div class="cc-body">
+          <label class="cc-input-wrap">
+            <span>Guest Count</span>
+            <input type="range" id="ccGuests" min="6" max="250" step="1" value="30">
+            <output id="ccGuestsOut">30 guests</output>
+          </label>
+          <div class="cc-results">
+            <div class="cc-tile">
+              <small>Recommended</small>
+              <strong><span id="ccCups">36</span>&ndash;<span id="ccCupsMax">42</span> cups</strong>
+            </div>
+            <div class="cc-tile">
+              <small>Suggested Pack</small>
+              <strong id="ccPack">50-Cup Party Drop</strong>
+            </div>
+            <div class="cc-tile cc-price">
+              <small>Estimated</small>
+              <strong id="ccPrice">$325+</strong>
+            </div>
+          </div>
+          <a class="button primary shimmer" href="#preorder" id="ccBookBtn">Reserve This Drop</a>
+        </div>
       </div>
     </section>
 
@@ -456,6 +653,7 @@
           <div class="ac-cups">18 Cups</div>
           <div class="ac-time flip-cell" data-val="14 min">14 min</div>
           <div class="ac-badge sold-out-badge">CROWNED OUT</div>
+          <span class="founding-badge" title="Founding Royal Batch">FOUNDING ROYAL &#9819;</span>
         </article>
         <article class="archive-card">
           <div class="ac-drop">Drop 002</div>
@@ -475,6 +673,115 @@
           <div class="ac-time">COMING</div>
           <div class="ac-badge future-badge">COMING SOON</div>
         </article>
+      </div>
+
+      <!-- ═══ ROYAL MENU TIMELINE ═══ -->
+      <div class="royal-timeline reveal" id="royalTimeline" aria-label="Royal Menu Timeline">
+        <div class="rt-head">
+          <span class="kicker">Royal Menu Timeline</span>
+          <h3>Every flavor. Every drop. Every crown.</h3>
+        </div>
+        <div class="rt-rail">
+          <div class="rt-track">
+            <div class="rt-node">
+              <span class="rt-dot"></span>
+              <b>Drop 001</b>
+              <p>Vanilla Crown <i>debut</i></p>
+              <small>14 min sellout</small>
+            </div>
+            <div class="rt-node">
+              <span class="rt-dot"></span>
+              <b>Drop 002</b>
+              <p>Cookies &amp; Cream Castle <i>champion</i></p>
+              <small>33 min sellout</small>
+            </div>
+            <div class="rt-node rt-live">
+              <span class="rt-dot"></span>
+              <b>Drop 003</b>
+              <p>All Three Crowns &mdash; <i>LIVE</i></p>
+              <small>42 / 60 claimed</small>
+            </div>
+            <div class="rt-node rt-future">
+              <span class="rt-dot"></span>
+              <b>Drop 004</b>
+              <p>Strawberry Shortcake Queen <i>incoming</i></p>
+              <small>100 cup goal</small>
+            </div>
+            <div class="rt-node rt-future">
+              <span class="rt-dot"></span>
+              <b>Drop 005</b>
+              <p>Crown Club Members&rsquo; Choice</p>
+              <small>vote opens after drop 004</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FLAVOR HALL OF FAME ═══ -->
+    <section class="section-pad hof-section" id="hof">
+      <div class="section-title reveal">
+        <span class="kicker">Flavor Hall of Fame</span>
+        <h2>The legends that built the kingdom.</h2>
+        <p>Retired crowns and champion flavors. Tap &ldquo;Bring It Back&rdquo; to vote a legend into the next drop.</p>
+      </div>
+      <div class="hof-grid reveal" id="hofGrid">
+        <article class="hof-card" data-flavor="Cookies &amp; Cream Castle">
+          <span class="hof-medal">&#127942;</span>
+          <h3>Cookies &amp; Cream Castle</h3>
+          <p class="hof-meta">4&times; Sellout Champion &bull; Drops 001&ndash;003</p>
+          <p class="hof-quote">&ldquo;The one everyone asks for by name.&rdquo;</p>
+          <button class="hof-bring" type="button" data-flavor="Cookies &amp; Cream Castle">
+            <span class="hbb-text">Bring It Back</span>
+            <span class="hbb-count" data-count="0">0</span>
+          </button>
+        </article>
+        <article class="hof-card" data-flavor="Peach Cobbler Crown">
+          <span class="hof-medal">&#9819;</span>
+          <h3>Peach Cobbler Crown</h3>
+          <p class="hof-meta">Retired Summer Drop &bull; Fan Favorite</p>
+          <p class="hof-quote">&ldquo;Warm peach, brown sugar, golden crumble.&rdquo;</p>
+          <button class="hof-bring" type="button" data-flavor="Peach Cobbler Crown">
+            <span class="hbb-text">Bring It Back</span>
+            <span class="hbb-count" data-count="0">0</span>
+          </button>
+        </article>
+        <article class="hof-card" data-flavor="Banana Pudding Throne">
+          <span class="hof-medal">&#11088;</span>
+          <h3>Banana Pudding Throne</h3>
+          <p class="hof-meta">Sellout Speed Record &bull; 11 min</p>
+          <p class="hof-quote">&ldquo;Layered banana cream, wafer crumble.&rdquo;</p>
+          <button class="hof-bring" type="button" data-flavor="Banana Pudding Throne">
+            <span class="hbb-text">Bring It Back</span>
+            <span class="hbb-count" data-count="0">0</span>
+          </button>
+        </article>
+        <article class="hof-card" data-flavor="Red Velvet Royalty">
+          <span class="hof-medal">&#10052;</span>
+          <h3>Red Velvet Royalty</h3>
+          <p class="hof-meta">Holiday Drop &bull; Sold Out in 19 min</p>
+          <p class="hof-quote">&ldquo;Velvet ribbon, cream cheese crown.&rdquo;</p>
+          <button class="hof-bring" type="button" data-flavor="Red Velvet Royalty">
+            <span class="hbb-text">Bring It Back</span>
+            <span class="hbb-count" data-count="0">0</span>
+          </button>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══ CREAMY QUEEN SCOREBOARD ═══ -->
+    <section class="section-pad scoreboard-section" id="scoreboard">
+      <div class="section-title reveal">
+        <span class="kicker">The Creamy Queen Scoreboard</span>
+        <h2>The kingdom in numbers.</h2>
+      </div>
+      <div class="sb-grid reveal">
+        <div class="sb-tile"><small>Cups Sold (All Drops)</small><strong data-counter="218">0</strong><i>and counting</i></div>
+        <div class="sb-tile"><small>Fastest Sellout</small><strong data-counter="11" data-suffix=" min">0 min</strong><i>Banana Pudding Throne</i></div>
+        <div class="sb-tile"><small>Champion Flavor</small><strong class="sb-text">Cookies &amp; Cream</strong><i>4&times; sold out</i></div>
+        <div class="sb-tile"><small>Crown Club Members</small><strong data-counter="612">0</strong><i>royals and growing</i></div>
+        <div class="sb-tile"><small>Events Served</small><strong data-counter="17">0</strong><i>schools, teams, churches</i></div>
+        <div class="sb-tile"><small>Average Drop Sellout</small><strong data-counter="27" data-suffix=" min">0 min</strong><i>across batches</i></div>
       </div>
     </section>
 
@@ -860,6 +1167,14 @@
             </label>
           </div>
 
+          <label class="mystery-row">
+            <input type="checkbox" id="mysteryCup">
+            <span class="mystery-box">
+              <strong>+ Queen&rsquo;s Choice Mystery Cup <em>($7)</em></strong>
+              <small>Let the Queen pick. A surprise crown chosen on drop day.</small>
+            </span>
+          </label>
+
           <label>
             Notes
             <textarea id="notes" placeholder="Allergies, event details, preferred flavors, delivery request, etc."></textarea>
@@ -883,10 +1198,15 @@
           <div class="summary-card">
             <span>Your Crown Cart</span>
             <h3 id="summaryPack">Royal Sampler</h3>
+            <p class="cup-number-line">Batch <b id="summaryBatch">003</b> &bull; Cup <b id="summaryCupNum">043</b> of <b>060</b></p>
             <div class="summary-lines">
               <div>
                 <small>Base Price</small>
                 <strong id="summaryPrice">$18</strong>
+              </div>
+              <div id="summaryMysteryRow" hidden>
+                <small>Mystery Cup</small>
+                <strong>+$7</strong>
               </div>
               <div>
                 <small>Total</small>
@@ -901,6 +1221,16 @@
               <strong>$YourCashApp</strong>
               <p>Replace this with Cash App, Square, Stripe Payment Link, or your preferred preorder method.</p>
             </div>
+          </div>
+
+          <!-- Royal Receipt slide-up (after seal) -->
+          <div class="royal-receipt" id="royalReceipt" aria-live="polite" hidden>
+            <div class="rr-tear"></div>
+            <div class="rr-crown">&#9819;</div>
+            <span class="rr-stamp">CLAIMED BY THE QUEEN</span>
+            <p class="rr-title">The Creamy Queen &mdash; Royal Receipt</p>
+            <ul class="rr-lines" id="rrLines"></ul>
+            <p class="rr-foot">Batch <b id="rrBatch">003</b> &bull; Cup <b id="rrCupNum">043</b>/060</p>
           </div>
         </aside>
       </div>
@@ -930,6 +1260,13 @@
   </footer>
 
   <div class="toast" id="toast">Order copied to clipboard.</div>
+
+  <!-- ═══ MOBILE FLOATING PREORDER CTA ═══ -->
+  <a class="floating-cta" id="floatingCta" href="#preorder" aria-label="Jump to preorder">
+    <span class="fc-crown">&#9819;</span>
+    <span class="fc-text"><b>Claim Your Cup</b><small><span id="fcRemaining">18</span> left in Batch 003</small></span>
+  </a>
+
   <script src="script.js"></script>
 </body>
 </html>
