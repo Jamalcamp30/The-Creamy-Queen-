@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Creamy Queen | Pop-Up Ice Cream Drops</title>
+  <meta name="description" content="The Creamy Queen is a premium pop-up ice cream drop brand serving limited 8 oz cups, family boxes, party packs, and catering drops." />
+  <meta property="og:title" content="The Creamy Queen | Where Every Scoop Gets Crowned" />
+  <meta property="og:description" content="Limited ice cream drops. Premium cups. Party boxes. Catering-ready dessert royalty." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#140416" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="page-glow"></div>
+
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="The Creamy Queen home">
+      <span class="brand-mark" aria-hidden="true">
+        <span class="swirl"></span>
+        <span class="crown">&#9819;</span>
+      </span>
+      <span class="brand-text">
+        <span>The Creamy</span>
+        <strong>Queen</strong>
+      </span>
+    </a>
+
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu">&#9776;</button>
+
+    <nav class="nav" id="nav">
+      <a href="#drop">The Drop</a>
+      <a href="#flavors">Flavors</a>
+      <a href="#packs">Packs</a>
+      <a href="#events">Events</a>
+      <a href="#preorder">Preorder</a>
+    </nav>
+
+    <a class="nav-cta" href="#preorder">Get Crowned</a>
+  </header>
+
+  <main>
+    <section class="hero section-pad">
+      <div class="hero-content reveal">
+        <div class="eyebrow">
+          <span class="dot"></span>
+          Atlanta Area Pop-Up Ice Cream
+        </div>
+
+        <h1>Dessert royalty, released by the drop.</h1>
+
+        <p class="hero-copy">
+          The Creamy Queen is a premium pop-up ice cream experience built around
+          limited 8 oz cups, family boxes, party drops, and catering-ready flavor moments.
+          When the drop sells out, the crown closes.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button primary" href="#preorder">Reserve the Next Drop</a>
+          <a class="button ghost" href="#flavors">View Launch Flavors</a>
+        </div>
+
+        <div class="proof-grid">
+          <div>
+            <strong>16&ndash;18</strong>
+            <span>cups selling out now</span>
+          </div>
+          <div>
+            <strong>60</strong>
+            <span>next drop target</span>
+          </div>
+          <div>
+            <strong>$7</strong>
+            <span>premium cup price</span>
+          </div>
+          <div>
+            <strong>3</strong>
+            <span>core flavors</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="royal-card">
+          <div class="floating-badge">Limited Drop</div>
+          <div class="dessert-orb">
+            <div class="soft-serve"></div>
+            <div class="cup"></div>
+            <div class="gold-crown">&#9819;</div>
+          </div>
+
+          <div class="hero-card-copy">
+            <span>The Royal Drop</span>
+            <h2>60 Cups. 3 Flavors. One Crown.</h2>
+            <p>Built for preorders, pop-ups, party boxes, team treats, and catering.</p>
+          </div>
+
+          <div class="inventory">
+            <div class="inventory-top">
+              <span>Drop Capacity</span>
+              <strong><span id="soldCount">42</span>/60 claimed</strong>
+            </div>
+            <div class="inventory-bar">
+              <span id="inventoryFill"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad" id="drop">
+      <div class="section-title reveal">
+        <span class="kicker">The Drop System</span>
+        <h2>Turn instant sellouts into controlled weekly demand.</h2>
+        <p>
+          The goal is not random selling. The goal is a repeatable weekly system:
+          announce, preorder, produce, pickup, recap, and repeat.
+        </p>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-card reveal">
+          <span class="step">01</span>
+          <h3>Announce the Crown</h3>
+          <p>Post the week&rsquo;s flavors, pickup window, and total cups available. Scarcity creates urgency.</p>
+        </article>
+        <article class="timeline-card reveal">
+          <span class="step">02</span>
+          <h3>Open Preorders</h3>
+          <p>Customers reserve singles, sampler packs, family boxes, and 12-pack party drops.</p>
+        </article>
+        <article class="timeline-card reveal">
+          <span class="step">03</span>
+          <h3>Build the Cups</h3>
+          <p>Each 8 oz cup gets layered, labeled, packaged, and finished with premium presentation.</p>
+        </article>
+        <article class="timeline-card reveal">
+          <span class="step">04</span>
+          <h3>Sell Out Loud</h3>
+          <p>Post the sellout, share reactions, collect reviews, and tease the next limited flavor.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-pad flavors-section" id="flavors">
+      <div class="section-title reveal">
+        <span class="kicker">Launch Flavors</span>
+        <h2>Three core flavors. Built like signatures.</h2>
+        <p>
+          Simple enough to produce at volume. Premium enough to feel like a brand.
+          Memorable enough for customers to ask for them by name.
+        </p>
+      </div>
+
+      <div class="flavor-grid">
+        <article class="flavor-card vanilla reveal">
+          <div class="flavor-art">
+            <span class="mini-cup"></span>
+          </div>
+          <div class="pill">Classic Royalty</div>
+          <h3>Vanilla Crown</h3>
+          <p>Rich vanilla cream finished with golden cookie crumble, vanilla glaze, and a crowned finish.</p>
+          <ul>
+            <li>Vanilla cream</li>
+            <li>Golden cookie crumble</li>
+            <li>Vanilla glaze</li>
+            <li>Crown topping</li>
+          </ul>
+          <strong class="price">$7</strong>
+        </article>
+
+        <article class="flavor-card cookies reveal">
+          <div class="flavor-art">
+            <span class="mini-cup"></span>
+          </div>
+          <div class="pill">Best Seller Energy</div>
+          <h3>Cookies &amp; Cream Castle</h3>
+          <p>Cookies and cream loaded with crushed cookies, chocolate ribbon, and a bold cookie-dust top.</p>
+          <ul>
+            <li>Cookies &amp; cream base</li>
+            <li>Cookie crumble</li>
+            <li>Chocolate ribbon</li>
+            <li>Cookie dust</li>
+          </ul>
+          <strong class="price">$7</strong>
+        </article>
+
+        <article class="flavor-card lime reveal">
+          <div class="flavor-art">
+            <span class="mini-cup"></span>
+          </div>
+          <div class="pill">Signature Specialty</div>
+          <h3>Key Lime Queen</h3>
+          <p>Bright key lime cream layered with graham crumble, whipped finish, and citrus crown energy.</p>
+          <ul>
+            <li>Key lime cream</li>
+            <li>Graham crumble</li>
+            <li>Whipped finish</li>
+            <li>Lime zest</li>
+          </ul>
+          <strong class="price">$7</strong>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-pad packs-panel" id="packs">
+      <div class="packs-copy reveal">
+        <span class="kicker">Increase Volume</span>
+        <h2>Single cups are good. Boxes build the business.</h2>
+        <p>
+          A 12-pack at $75 can replace twelve separate one-cup sales. That is how
+          the Creamy Queen moves from 18 cups to 60, 100, and 150 without chasing every buyer.
+        </p>
+      </div>
+
+      <div class="pack-grid">
+        <article class="pack-card reveal">
+          <span>1 Cup</span>
+          <h3>Single Crown Cup</h3>
+          <p>One premium 8 oz cup. Perfect first taste.</p>
+          <strong>$7</strong>
+        </article>
+        <article class="pack-card featured reveal">
+          <span>3 Cups</span>
+          <h3>Royal Sampler</h3>
+          <p>One Vanilla Crown, one Cookies &amp; Cream Castle, one Key Lime Queen.</p>
+          <strong>$18</strong>
+        </article>
+        <article class="pack-card reveal">
+          <span>6 Cups</span>
+          <h3>Family Crown Box</h3>
+          <p>Mix-and-match six cups for the house, team, or office.</p>
+          <strong>$38</strong>
+        </article>
+        <article class="pack-card reveal">
+          <span>12 Cups</span>
+          <h3>Party Drop Box</h3>
+          <p>Built for birthdays, cookouts, staff treats, and small events.</p>
+          <strong>$75</strong>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-pad events" id="events">
+      <div class="section-title reveal">
+        <span class="kicker">Events &amp; Catering</span>
+        <h2>The pop-up becomes the profit engine.</h2>
+        <p>
+          Take The Creamy Queen where demand already exists: youth sports, schools,
+          offices, churches, gyms, parties, and community events.
+        </p>
+      </div>
+
+      <div class="event-grid">
+        <article class="event-card reveal">
+          <span class="event-price">$325+</span>
+          <h3>50-Cup Party Drop</h3>
+          <p>Best for birthdays, practice nights, office treats, and family gatherings.</p>
+          <a href="#preorder">Request 50 Cups</a>
+        </article>
+
+        <article class="event-card reveal">
+          <span class="event-price">$650+</span>
+          <h3>100-Cup Event Drop</h3>
+          <p>Built for schools, sports teams, churches, apartment communities, and corporate orders.</p>
+          <a href="#preorder">Request 100 Cups</a>
+        </article>
+
+        <article class="event-card reveal">
+          <span class="event-price">Custom</span>
+          <h3>Pop-Up Appearance</h3>
+          <p>A branded Creamy Queen setup for markets, festivals, tournaments, and private events.</p>
+          <a href="#preorder">Book a Pop-Up</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-pad next-flavors">
+      <div class="section-title reveal">
+        <span class="kicker">Coming Drops</span>
+        <h2>The weekly limited flavors keep people coming back.</h2>
+      </div>
+
+      <div class="marquee reveal" aria-label="Future drop flavors">
+        <div class="marquee-track">
+          <span>Strawberry Shortcake Queen</span>
+          <span>Banana Pudding Throne</span>
+          <span>Peach Cobbler Crown</span>
+          <span>Red Velvet Royalty</span>
+          <span>Lemon Pound Cake Duchess</span>
+          <span>Caramel Praline Crown</span>
+          <span>Blueberry Cheesecake Queen</span>
+          <span>Strawberry Key Lime Crown</span>
+          <span>Strawberry Shortcake Queen</span>
+          <span>Banana Pudding Throne</span>
+          <span>Peach Cobbler Crown</span>
+          <span>Red Velvet Royalty</span>
+          <span>Lemon Pound Cake Duchess</span>
+          <span>Caramel Praline Crown</span>
+          <span>Blueberry Cheesecake Queen</span>
+          <span>Strawberry Key Lime Crown</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad preorder-section" id="preorder">
+      <div class="section-title reveal">
+        <span class="kicker">Preorder Builder</span>
+        <h2>Reserve the crown before it sells out.</h2>
+        <p>
+          Use this as the first order flow. Replace the placeholder email, phone,
+          Cash App, or payment link with your real order details before launch.
+        </p>
+      </div>
+
+      <div class="order-shell reveal">
+        <form class="order-form" id="orderForm">
+          <div class="form-row">
+            <label>
+              Name
+              <input type="text" id="customerName" placeholder="Your name" required>
+            </label>
+            <label>
+              Phone or Email
+              <input type="text" id="customerContact" placeholder="Phone or email" required>
+            </label>
+          </div>
+
+          <div class="form-row">
+            <label>
+              Pack
+              <select id="packSelect">
+                <option value="Single Crown Cup|7">Single Crown Cup &mdash; $7</option>
+                <option value="Royal Sampler|18" selected>Royal Sampler &mdash; $18</option>
+                <option value="Family Crown Box|38">Family Crown Box &mdash; $38</option>
+                <option value="Party Drop Box|75">Party Drop Box &mdash; $75</option>
+                <option value="50-Cup Party Drop|325">50-Cup Party Drop &mdash; $325+</option>
+                <option value="100-Cup Event Drop|650">100-Cup Event Drop &mdash; $650+</option>
+              </select>
+            </label>
+            <label>
+              Quantity
+              <select id="quantitySelect">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="form-row">
+            <label>
+              Flavor Preference
+              <select id="flavorSelect">
+                <option>Mix of all 3</option>
+                <option>Vanilla Crown</option>
+                <option>Cookies &amp; Cream Castle</option>
+                <option>Key Lime Queen</option>
+                <option>Custom for Event</option>
+              </select>
+            </label>
+            <label>
+              Pickup Window
+              <select id="pickupSelect">
+                <option>Friday 5&ndash;7 PM</option>
+                <option>Saturday 12&ndash;2 PM</option>
+                <option>Event / Catering Request</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            Notes
+            <textarea id="notes" placeholder="Allergies, event details, preferred flavors, delivery request, etc."></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button class="button primary" type="button" id="copyOrder">Copy Order Summary</button>
+            <a class="button ghost" id="emailOrder" href="#">Email Order</a>
+          </div>
+
+          <p class="fine-print">
+            Food allergy note: Please ask about allergens before ordering. Final permitting,
+            pickup, delivery, and event service rules depend on local food-service requirements.
+          </p>
+        </form>
+
+        <aside class="order-summary">
+          <div class="summary-card">
+            <span>Your Crown Cart</span>
+            <h3 id="summaryPack">Royal Sampler</h3>
+            <div class="summary-lines">
+              <div>
+                <small>Base Price</small>
+                <strong id="summaryPrice">$18</strong>
+              </div>
+              <div>
+                <small>Total</small>
+                <strong id="summaryTotal">$18</strong>
+              </div>
+            </div>
+            <p id="summaryText">
+              Royal Sampler &bull; Qty 1 &bull; Mix of all 3 &bull; Friday 5&ndash;7 PM
+            </p>
+            <div class="cashapp-box">
+              <small>Payment Placeholder</small>
+              <strong>$YourCashApp</strong>
+              <p>Replace this with Cash App, Square, Stripe Payment Link, or your preferred preorder method.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <a class="brand footer-brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="swirl"></span>
+          <span class="crown">&#9819;</span>
+        </span>
+        <span class="brand-text">
+          <span>The Creamy</span>
+          <strong>Queen</strong>
+        </span>
+      </a>
+      <p>Where Every Scoop Gets Crowned. Built for pop-ups, family boxes, catering drops, and future storefronts.</p>
+    </div>
+
+    <div class="footer-links">
+      <a href="mailto:orders@thecreamyqueen.com">orders@thecreamyqueen.com</a>
+      <a href="tel:0000000000">(000) 000-0000</a>
+      <a href="#">@thecreamyqueen</a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">Order copied to clipboard.</div>
+  <script src="script.js"></script>
+</body>
+</html>
