@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Creamy Queen | Pop-Up Ice Cream Drops</title>
-  <meta name="description" content="The Creamy Queen is a premium pop-up ice cream drop brand serving limited 8 oz cups, family boxes, party packs, and catering drops." />
+  <title>The Creamy Queen | Get Crowned Before It's Gone</title>
+  <meta name="description" content="The Creamy Queen — small-batch, limited-drop ice cream. Crowned by demand. Premium 8 oz cups, family boxes, party packs, and catering drops." />
   <meta property="og:title" content="The Creamy Queen | Where Every Scoop Gets Crowned" />
   <meta property="og:description" content="Limited ice cream drops. Premium cups. Party boxes. Catering-ready dessert royalty." />
   <meta property="og:type" content="website" />
@@ -121,19 +121,60 @@
           <span class="dot"></span>
           Atlanta Area Pop-Up Ice Cream
           <span class="live-badge" id="liveBadge">LIVE</span>
+          <span class="royal-seal" title="Royal Seal of Freshness">
+            <span class="rs-crown">&#9819;</span>
+            <span class="rs-text">Royal Seal of Freshness</span>
+          </span>
         </div>
 
-        <h1>Dessert royalty, released by the drop.</h1>
+        <h1>Get Crowned Before It&rsquo;s Gone.</h1>
 
         <p class="hero-copy">
-          The Creamy Queen is a premium pop-up ice cream experience built around
-          limited 8&nbsp;oz cups, family boxes, party drops, and catering-ready flavor moments.
-          When the drop sells out, the crown closes.
+          Small-batch. Limited-drop. <strong>Crowned by demand.</strong>
+          Premium 8&nbsp;oz cups, family boxes, party drops, and catering-ready flavor moments &mdash;
+          when the cups are gone, the crown closes.
         </p>
 
+        <!-- Inline flavor previews (hero) -->
+        <div class="hero-flavors" aria-label="Launch flavors">
+          <a href="#flavors" class="hf-card hf-vanilla">
+            <span class="hf-crown">&#9819;</span>
+            <b>Vanilla Crown</b>
+            <small>Elegant</small>
+          </a>
+          <a href="#flavors" class="hf-card hf-cookies">
+            <span class="hf-crown">&#9819;</span>
+            <b>Cookies &amp; Cream Castle</b>
+            <small>Bold</small>
+          </a>
+          <a href="#flavors" class="hf-card hf-lime">
+            <span class="hf-crown">&#9819;</span>
+            <b>Key Lime Queen</b>
+            <small>Fearless</small>
+          </a>
+        </div>
+
         <div class="hero-actions">
-          <a class="button primary shimmer" href="#preorder" id="heroCtaBtn">Reserve the Next Drop</a>
+          <a class="button primary shimmer" href="#preorder" id="heroCtaBtn">Claim My Cup Before Sellout</a>
           <a class="button ghost" href="#flavors">View Launch Flavors</a>
+        </div>
+
+        <!-- Social proof above the fold -->
+        <div class="hero-proof-strip" aria-label="Sellout proof">
+          <span><b>Drop 001</b> sold out in <strong>14 min</strong></span>
+          <span><b>Drop 002</b> sold out in <strong>33 min</strong></span>
+          <span><b>Drop 003</b> <em class="hps-live">LIVE</em> &middot; 42 of 60 claimed</span>
+        </div>
+
+        <!-- Mini countdown inside hero -->
+        <div class="hero-clock" aria-label="Next drop countdown">
+          <span class="hc-label">Next Drop Opens In</span>
+          <div class="hc-blocks">
+            <div><b id="hcDays">--</b><i>d</i></div>
+            <div><b id="hcHours">--</b><i>h</i></div>
+            <div><b id="hcMins">--</b><i>m</i></div>
+            <div><b id="hcSecs">--</b><i>s</i></div>
+          </div>
         </div>
 
         <div class="proof-grid">
@@ -162,6 +203,12 @@
           <div class="dessert-orb">
             <div class="soft-serve"></div>
             <div class="cup"></div>
+            <div class="cup-label" aria-hidden="true">
+              <span class="cl-crown">&#9819;</span>
+              <span class="cl-brand">THE CREAMY QUEEN</span>
+              <span class="cl-line">8&nbsp;OZ &bull; SMALL BATCH</span>
+              <span class="cl-batch">BATCH 003 &bull; CUP <span id="cupLabelNum">043</span>/060</span>
+            </div>
             <div class="gold-crown">&#9819;</div>
           </div>
 
@@ -189,6 +236,66 @@
               </div>
               <p class="lm-status" id="lmStatus">Cups are going fast.</p>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ THE CROWN DROP ROOM (signature feature) ═══ -->
+    <section class="section-pad crown-drop-room" id="crown-drop-room" aria-label="The Crown Drop Room">
+      <div class="cdr-shell reveal">
+        <div class="cdr-head">
+          <span class="kicker">&#9819; THE CROWN DROP ROOM</span>
+          <h2>Step inside the live drop.</h2>
+          <p>Watch cups claim in real time. Lock your flavors. Vote the next crown. Join the Crown Club. All in one room.</p>
+        </div>
+        <div class="cdr-grid">
+          <!-- LIVE INVENTORY -->
+          <div class="cdr-panel cdr-live">
+            <span class="cdr-tag pulse">&#9679; LIVE</span>
+            <h3>Drop 003 &mdash; claiming now</h3>
+            <div class="cdr-cups" id="cdrCups" aria-label="60 cups grid">
+              <!-- 60 cups injected by JS -->
+            </div>
+            <div class="cdr-stats">
+              <span><b id="cdrClaimed">42</b>/60 claimed</span>
+              <span><b id="cdrRemaining">18</b> left</span>
+              <span><b id="cdrPace">~38m</b> to sellout</span>
+            </div>
+          </div>
+
+          <!-- FLAVOR LOCK -->
+          <div class="cdr-panel cdr-flavor">
+            <span class="cdr-tag">CHOOSE YOUR CROWN</span>
+            <h3>Lock your flavor</h3>
+            <div class="cdr-flavor-row">
+              <button class="cdr-flav cdr-vanilla" data-flavor="Vanilla Crown"><b>Vanilla</b><small>Crown</small></button>
+              <button class="cdr-flav cdr-cookies" data-flavor="Cookies &amp; Cream Castle"><b>Cookies</b><small>&amp; Cream</small></button>
+              <button class="cdr-flav cdr-lime" data-flavor="Key Lime Queen"><b>Key Lime</b><small>Queen</small></button>
+            </div>
+            <p class="cdr-locked" id="cdrLocked">Tap a flavor to lock the crown.</p>
+            <a class="button primary shimmer cdr-claim" href="#preorder">Send Lock to Preorder</a>
+          </div>
+
+          <!-- VOTE NEXT -->
+          <div class="cdr-panel cdr-vote">
+            <span class="cdr-tag">VOTE THE NEXT CROWN</span>
+            <h3>Who gets crowned next?</h3>
+            <a class="cdr-jump" href="#vote">Open the Flavor War &rarr;</a>
+            <ul class="cdr-mini-vote">
+              <li><span>Banana Pudding Throne</span><b id="cdrVoteBanana">60%</b></li>
+              <li><span>Strawberry Shortcake Queen</span><b id="cdrVoteStraw">40%</b></li>
+            </ul>
+            <p class="cdr-note">Crown Club votes count <strong>2&times;</strong>.</p>
+          </div>
+
+          <!-- CROWN CLUB -->
+          <div class="cdr-panel cdr-club">
+            <span class="cdr-tag">JOIN THE COURT</span>
+            <h3>Crown Club</h3>
+            <p>Get the text before Instagram sees the drop.</p>
+            <a class="button ghost" href="#crown-club">Unlock Early Access &rarr;</a>
+            <p class="cdr-stat-mini"><b>612</b> royals in the court</p>
           </div>
         </div>
       </div>
@@ -223,9 +330,9 @@
             <span class="db-meta" id="dbPredictText">at current claim rate</span>
           </div>
           <div class="db-tile">
-            <small>Pickup Window</small>
+            <small>Crown Pickup Window</small>
             <strong>Fri 5&ndash;7 PM</strong>
-            <span class="db-meta">Atlanta Area</span>
+            <span class="db-meta">Atlanta Area &bull; revealed after preorder</span>
           </div>
           <div class="db-tile">
             <small>Crown Club Early Access</small>
@@ -336,6 +443,8 @@
             <span class="ts-pair">Best Pairing: warm cookie</span>
           </div>
           <strong class="price">$7</strong>
+          <div class="best-for"><span>Best For:</span><i>Kids</i><i>First-timers</i><i>Summer</i></div>
+          <p class="low-stock" data-flavor="Vanilla Crown">Only <b id="stockVanilla">14</b> Vanilla Crown cups left</p>
           <button class="card-claim" data-flavor="Vanilla Crown" type="button">Claim Vanilla Crown</button>
         </article>
 
@@ -366,6 +475,8 @@
             <span class="ts-pair">4&times; Sellout Champion</span>
           </div>
           <strong class="price">$7</strong>
+          <div class="best-for"><span>Best For:</span><i>Parties</i><i>Team events</i><i>Adults</i></div>
+          <p class="low-stock" data-flavor="Cookies &amp; Cream Castle">Only <b id="stockCookies">9</b> Cookies &amp; Cream cups left</p>
           <button class="card-claim" data-flavor="Cookies &amp; Cream Castle" type="button">Claim Cookies &amp; Cream</button>
         </article>
 
@@ -392,8 +503,25 @@
             <span class="ts-pair">Best Pairing: graham cracker</span>
           </div>
           <strong class="price">$7</strong>
+          <div class="best-for"><span>Best For:</span><i>Summer</i><i>Adults</i><i>Refreshing</i></div>
+          <p class="low-stock low-stock-hot" data-flavor="Key Lime Queen">Only <b id="stockLime">8</b> Key Lime Queen cups left</p>
           <button class="card-claim" data-flavor="Key Lime Queen" type="button">Claim Key Lime</button>
         </article>
+      </div>
+
+      <!-- ═══ FLAVOR BUILD ANIMATION ═══ -->
+      <div class="flavor-build reveal" aria-label="How a crown is built">
+        <div class="fb-head">
+          <span class="kicker">How a Crown Is Built</span>
+          <h3>Layered, not scooped.</h3>
+        </div>
+        <div class="fb-stages">
+          <div class="fb-stage fb-1"><span class="fb-layer"></span><b>1</b><i>Base Cream</i></div>
+          <div class="fb-stage fb-2"><span class="fb-layer"></span><b>2</b><i>Crumble</i></div>
+          <div class="fb-stage fb-3"><span class="fb-layer"></span><b>3</b><i>Ribbon</i></div>
+          <div class="fb-stage fb-4"><span class="fb-layer"></span><b>4</b><i>Topping</i></div>
+          <div class="fb-stage fb-5"><span class="fb-layer"></span><b>5</b><i>Crown Seal &#9819;</i></div>
+        </div>
       </div>
 
       <!-- ═══ FLAVOR PASSPORT (collect stamps) ═══ -->
@@ -409,6 +537,78 @@
           <div class="passport-stamp" data-stamp="Key Lime Queen"><span>&#9819;</span><b>Key Lime<br>Queen</b></div>
         </div>
         <p class="passport-reward" id="passportReward">0 / 3 crowns stamped. Royalty is patient.</p>
+      </div>
+    </section>
+
+    <!-- ═══ FOUNDER STORY ═══ -->
+    <section class="section-pad founder-section" id="founder">
+      <div class="founder-shell reveal">
+        <div class="founder-mark">
+          <span class="fm-crown">&#9819;</span>
+          <span class="fm-swirl"></span>
+        </div>
+        <div class="founder-copy">
+          <span class="kicker">The Founder Story</span>
+          <h2>Built from 18 cups. Sold out almost instantly. Now the crown is growing.</h2>
+          <p>
+            The Creamy Queen started with one freezer, one batch, and 18 hand-finished cups.
+            Drop 001 sold out in 14 minutes. Drop 002 sold out at 40 cups in 33 minutes.
+            Drop 003 launched at 60 &mdash; and the demand keeps stacking.
+          </p>
+          <p>
+            Every cup is layered, labeled, and sealed by hand. Every batch carries the Royal Seal of Freshness.
+            Every drop is built like a small product launch, not a menu item.
+          </p>
+          <div class="founder-quote">
+            <span>&ldquo;</span>
+            <p>Small-batch. Limited-drop. <strong>Crowned by demand.</strong></p>
+          </div>
+          <div class="founder-milestones">
+            <div><b>001</b><i>18 cups &bull; 14 min</i></div>
+            <div><b>002</b><i>40 cups &bull; 33 min</i></div>
+            <div class="fm-live"><b>003</b><i>60 cups &bull; LIVE</i></div>
+            <div class="fm-next"><b>004</b><i>100 cup goal</i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ WHY IT SELLS OUT ═══ -->
+    <section class="section-pad wsi-section" id="why-sellout">
+      <div class="section-title reveal">
+        <span class="kicker">Why It Sells Out</span>
+        <h2>Four reasons the crown keeps closing early.</h2>
+      </div>
+      <div class="wsi-grid reveal">
+        <article class="wsi-card">
+          <span class="wsi-ico">&#9201;</span>
+          <h3>Real Scarcity</h3>
+          <p>Each drop is capped. When the cups are gone, the crown closes. No restocks mid-drop.</p>
+        </article>
+        <article class="wsi-card">
+          <span class="wsi-ico">&#127846;</span>
+          <h3>Flavor Layering</h3>
+          <p>Cream base, crumble, ribbon, topping, and crown seal &mdash; built like a dessert, not scooped.</p>
+        </article>
+        <article class="wsi-card">
+          <span class="wsi-ico">&#10052;</span>
+          <h3>Same-Week Freshness</h3>
+          <p>Cups are made for the drop they're sold in. Best in the first 3&ndash;4 days. Royal Seal verified.</p>
+        </article>
+        <article class="wsi-card">
+          <span class="wsi-ico">&#128293;</span>
+          <h3>Local Demand</h3>
+          <p>Atlanta-area pop-up energy. The Crown Club gets the text before Instagram sees the drop.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══ BRAND PROMISE BANNER ═══ -->
+    <section class="brand-promise" aria-label="Brand promise">
+      <div class="bp-inner reveal">
+        <span class="bp-crown">&#9819;</span>
+        <p><strong>Small-batch.</strong> <strong>Limited-drop.</strong> <strong>Crowned by demand.</strong></p>
+        <span class="bp-crown">&#9819;</span>
       </div>
     </section>
 
@@ -439,23 +639,34 @@
           <p>One premium 8&nbsp;oz cup. Perfect first taste.</p>
           <strong>$7</strong>
         </article>
-        <article class="pack-card featured reveal">
+        <article class="pack-card featured popular reveal">
+          <span class="popular-badge">MOST POPULAR</span>
           <span>3 Cups</span>
           <h3>Royal Sampler</h3>
           <p>One Vanilla Crown, one Cookies &amp; Cream Castle, one Key Lime Queen.</p>
+          <p class="upsell">Make it a 6-pack and save &mdash; just $2/cup more.</p>
           <strong>$18</strong>
         </article>
         <article class="pack-card reveal">
           <span>6 Cups</span>
           <h3>Family Crown Box</h3>
           <p>Mix-and-match six cups for the house, team, or office.</p>
+          <p class="upsell">Upgrade to 12-pack &mdash; save $13 vs singles.</p>
           <strong>$38</strong>
         </article>
-        <article class="pack-card reveal">
+        <article class="pack-card popular reveal">
+          <span class="popular-badge gold-badge">BEST VALUE</span>
           <span>12 Cups</span>
           <h3>Party Drop Box</h3>
           <p>Built for birthdays, cookouts, staff treats, and small events.</p>
           <strong>$75</strong>
+        </article>
+        <article class="pack-card team-card reveal">
+          <span class="team-badge">TEAM BOX</span>
+          <span>20 Cups</span>
+          <h3>Team Crown Box</h3>
+          <p>For sports teams, offices, gyms, churches, and schools. Branded pickup setup included.</p>
+          <strong>$120</strong>
         </article>
       </div>
     </section>
@@ -565,6 +776,170 @@
           <a class="button primary shimmer" href="#preorder" id="ccBookBtn">Reserve This Drop</a>
         </div>
       </div>
+
+      <!-- ═══ POP-UP EVENT CALENDAR ═══ -->
+      <div class="event-calendar reveal" id="eventCalendar" aria-label="Pop-up calendar">
+        <div class="ec-head">
+          <span class="kicker">Pop-Up Calendar</span>
+          <h3>Where the crown shows up next.</h3>
+        </div>
+        <div class="ec-grid">
+          <article class="ec-card ec-now">
+            <span class="ec-date"><b>FRI</b><i>MAY 15</i></span>
+            <div>
+              <h4>Drop 003 &mdash; Crown Pickup Window</h4>
+              <p>Atlanta Area &bull; 5&ndash;7 PM &bull; 60 cups</p>
+            </div>
+            <span class="ec-badge live">LIVE</span>
+          </article>
+          <article class="ec-card">
+            <span class="ec-date"><b>SAT</b><i>MAY 23</i></span>
+            <div>
+              <h4>Smyrna Youth Sports Pop-Up</h4>
+              <p>50-cup Party Drop &bull; team event</p>
+            </div>
+            <span class="ec-badge">CATERING</span>
+          </article>
+          <article class="ec-card">
+            <span class="ec-date"><b>FRI</b><i>MAY 29</i></span>
+            <div>
+              <h4>Drop 004 &mdash; Strawberry Shortcake Queen</h4>
+              <p>100-cup goal &bull; Crown Club early access at 4 PM</p>
+            </div>
+            <span class="ec-badge next">NEXT DROP</span>
+          </article>
+          <article class="ec-card">
+            <span class="ec-date"><b>SAT</b><i>JUN 6</i></span>
+            <div>
+              <h4>Marietta Community Market</h4>
+              <p>Pop-up appearance &bull; branded setup</p>
+            </div>
+            <span class="ec-badge">POP-UP</span>
+          </article>
+          <article class="ec-card">
+            <span class="ec-date"><b>FRI</b><i>JUN 12</i></span>
+            <div>
+              <h4>Drop 005 &mdash; Members' Choice</h4>
+              <p>Voted by the Crown Club</p>
+            </div>
+            <span class="ec-badge future">SOON</span>
+          </article>
+        </div>
+      </div>
+
+      <!-- ═══ BUILT FOR EVENTS (visual showcase) ═══ -->
+      <div class="bfe-section reveal" aria-label="Built for events">
+        <div class="bfe-head">
+          <span class="kicker">Built for Events</span>
+          <h3>Every detail comes crowned.</h3>
+          <p>From the cooler setup to the QR menu, the Creamy Queen event package looks like a brand on day one.</p>
+        </div>
+        <div class="bfe-grid">
+          <div class="bfe-tile bfe-cooler"><span class="bfe-ico">&#129482;</span><b>Branded Cooler</b><i>insulated, royal-stamped</i></div>
+          <div class="bfe-tile bfe-table"><span class="bfe-ico">&#127869;</span><b>Table Display</b><i>cream, gold, soft pink</i></div>
+          <div class="bfe-tile bfe-labels"><span class="bfe-ico">&#127991;</span><b>Premium Labels</b><i>cup &amp; box branding</i></div>
+          <div class="bfe-tile bfe-cards"><span class="bfe-ico">&#128196;</span><b>Serving Cards</b><i>flavor + allergy info</i></div>
+          <div class="bfe-tile bfe-qr"><span class="bfe-ico">&#9783;</span><b>QR Menu</b><i>scan to preorder</i></div>
+          <div class="bfe-tile bfe-tent"><span class="bfe-ico">&#9978;</span><b>Pop-Up Tent</b><i>branded canopy</i></div>
+        </div>
+      </div>
+
+      <!-- ═══ GROUP PACKAGES (team/office/school) ═══ -->
+      <div class="group-packages reveal" id="groupPackages" aria-label="Group packages">
+        <div class="gp-head">
+          <span class="kicker">Group Packages</span>
+          <h3>Sports teams. Offices. Schools. Churches.</h3>
+        </div>
+        <div class="gp-grid">
+          <article class="gp-card">
+            <span class="gp-ico">&#127942;</span>
+            <h4>Sports Teams</h4>
+            <p>Post-game treats, tournament boxes, championship celebrations.</p>
+            <ul>
+              <li>20 / 50 / 100 cup options</li>
+              <li>Branded team labels available</li>
+              <li>On-site pickup or delivery</li>
+            </ul>
+            <a href="#book-cq">Book a Team Box &rarr;</a>
+          </article>
+          <article class="gp-card">
+            <span class="gp-ico">&#127970;</span>
+            <h4>Offices</h4>
+            <p>Friday treats, client meetings, staff appreciation, end-of-quarter wins.</p>
+            <ul>
+              <li>Invoiceable orders</li>
+              <li>Recurring weekly drops</li>
+              <li>Office-friendly serving cards</li>
+            </ul>
+            <a href="#book-cq">Book the Office &rarr;</a>
+          </article>
+          <article class="gp-card">
+            <span class="gp-ico">&#127979;</span>
+            <h4>Schools &amp; PTAs</h4>
+            <p>Field day, end-of-year parties, fundraisers, teacher appreciation.</p>
+            <ul>
+              <li>Allergen-friendly options</li>
+              <li>Classroom-sized packs</li>
+              <li>Fundraiser pricing</li>
+            </ul>
+            <a href="#book-cq">Book the School &rarr;</a>
+          </article>
+          <article class="gp-card">
+            <span class="gp-ico">&#9961;</span>
+            <h4>Churches &amp; Community</h4>
+            <p>Sunday socials, youth events, community celebrations.</p>
+            <ul>
+              <li>Group-rate pricing</li>
+              <li>Setup &amp; serving included</li>
+              <li>Custom flavor selection</li>
+            </ul>
+            <a href="#book-cq">Book the Community &rarr;</a>
+          </article>
+        </div>
+      </div>
+
+      <!-- ═══ BOOK THE CREAMY QUEEN (catering quote) ═══ -->
+      <div class="book-cq reveal" id="book-cq" aria-label="Book The Creamy Queen">
+        <div class="bcq-head">
+          <span class="kicker">Book The Creamy Queen</span>
+          <h3>Birthdays. Corporate. Sports. Festivals.</h3>
+          <p>Get a custom catering quote in under 24 hours. The crown shows up branded, packaged, and ready.</p>
+        </div>
+        <form class="bcq-form" id="bcqForm" novalidate>
+          <div class="bcq-row">
+            <label>Your Name<input type="text" id="bcqName" placeholder="First &amp; last name"></label>
+            <label>Phone or Email<input type="text" id="bcqContact" placeholder="Best way to reach you"></label>
+          </div>
+          <div class="bcq-row">
+            <label>Event Type
+              <select id="bcqEvent">
+                <option>Birthday Party</option>
+                <option>Corporate Event</option>
+                <option>Sports Team</option>
+                <option>School / PTA</option>
+                <option>Church / Community</option>
+                <option>Festival / Market</option>
+                <option>Wedding / Private</option>
+              </select>
+            </label>
+            <label>Cup Count
+              <select id="bcqCount">
+                <option>20 cups</option>
+                <option selected>50 cups</option>
+                <option>100 cups</option>
+                <option>150+ cups</option>
+              </select>
+            </label>
+          </div>
+          <div class="bcq-row">
+            <label>Event Date<input type="text" id="bcqDate" placeholder="MM/DD/YYYY"></label>
+            <label>City / Zip<input type="text" id="bcqZip" placeholder="Atlanta area or beyond"></label>
+          </div>
+          <label>Notes<textarea id="bcqNotes" placeholder="Tell the Queen about your event &mdash; flavors, theme, allergies, branding needs."></textarea></label>
+          <button class="button primary shimmer" type="submit">Request My Royal Quote</button>
+          <p class="bcq-tiny" id="bcqResult" aria-live="polite"></p>
+        </form>
+      </div>
     </section>
 
     <!-- DRIP DIVIDER 4 (caramel gold) -->
@@ -620,7 +995,12 @@
             <p>Enter your phone or email to unlock early drop access, birthday Crown Cups, secret limited flavors, and the loyalty punch card.</p>
             <form class="gate-form" id="gateForm" novalidate>
               <input type="text" id="gateInput" placeholder="Phone or email" autocomplete="email" aria-label="Phone or email">
+              <input type="text" id="gateBirthday" placeholder="Birthday (MM/DD) &mdash; unlock free Crown Cup" aria-label="Birthday MM/DD" maxlength="5">
               <button class="button primary shimmer" type="submit">Unlock the Crown</button>
+              <label class="gate-sms">
+                <input type="checkbox" id="gateSms" checked>
+                <span>Text me drop alerts before Instagram sees them (SMS)</span>
+              </label>
             </form>
           </div>
         </div>
@@ -637,6 +1017,115 @@
           </ul>
           <p class="club-member-num">You are Crown Member <strong id="clubNumber">#0049</strong></p>
           <a class="button ghost" href="#vault">See the Flavor Vault</a>
+        </div>
+      </div>
+
+      <!-- Digital membership card -->
+      <div class="member-card reveal" id="memberCard" aria-label="Digital membership card">
+        <div class="mc-face">
+          <div class="mc-top">
+            <span class="mc-crown">&#9819;</span>
+            <span class="mc-brand">THE CREAMY QUEEN</span>
+            <span class="mc-tier" id="mcTier">SILVER SPOON</span>
+          </div>
+          <div class="mc-mid">
+            <small>CROWN MEMBER</small>
+            <strong id="mcNumber">#0049</strong>
+          </div>
+          <div class="mc-bot">
+            <span>Punch <b id="mcPunches">0</b>/8</span>
+            <span>Birthday <b id="mcBday">--/--</b></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CROWN CLUB TIERS -->
+      <div class="club-tiers reveal" id="clubTiers" aria-label="Crown Club Tiers">
+        <div class="ct-head">
+          <span class="kicker">Crown Club Tiers</span>
+          <h3>Three crowns. Three levels of royalty.</h3>
+        </div>
+        <div class="ct-grid">
+          <article class="ct-card ct-silver">
+            <span class="ct-rank">TIER I</span>
+            <span class="ct-icon">&#129352;</span>
+            <h4>Silver Spoon</h4>
+            <p>Drop alerts, birthday Crown Cup, member number.</p>
+            <ul>
+              <li>SMS drop alerts</li>
+              <li>Birthday reward</li>
+              <li>Punch card &mdash; buy 8 get 1 free</li>
+            </ul>
+            <strong class="ct-need">0 cups</strong>
+          </article>
+          <article class="ct-card ct-gold active">
+            <span class="ct-rank">TIER II</span>
+            <span class="ct-icon">&#9819;</span>
+            <h4>Gold Crown</h4>
+            <p>Everything in Silver, plus early access and secret menu.</p>
+            <ul>
+              <li>Early access timer</li>
+              <li>Secret menu unlocks</li>
+              <li>2&times; voting power</li>
+            </ul>
+            <strong class="ct-need">8+ cups</strong>
+          </article>
+          <article class="ct-card ct-royal">
+            <span class="ct-rank">TIER III</span>
+            <span class="ct-icon">&#128081;</span>
+            <h4>Royal Court</h4>
+            <p>For the loyalists. The kingdom's inner circle.</p>
+            <ul>
+              <li>Name a future limited flavor</li>
+              <li>Free Party Drop Box / year</li>
+              <li>Royal Wall feature</li>
+            </ul>
+            <strong class="ct-need">24+ cups</strong>
+          </article>
+        </div>
+      </div>
+
+      <!-- REFERRAL SYSTEM -->
+      <div class="referral reveal" id="referral" aria-label="Referral program">
+        <span class="kicker">Royal Referrals</span>
+        <h3>Bring 3 royals. Unlock a free Crown Cup.</h3>
+        <p>Share your member code. When 3 friends join the Crown Club, your next cup is on the Queen.</p>
+        <div class="ref-row">
+          <code class="ref-code" id="refCode">CROWN-0049</code>
+          <button class="button ghost" type="button" id="refCopy">Copy Code</button>
+        </div>
+        <div class="ref-progress" aria-label="Referral progress">
+          <span class="ref-step done">&#9819;</span>
+          <span class="ref-line"></span>
+          <span class="ref-step">&#9819;</span>
+          <span class="ref-line"></span>
+          <span class="ref-step">&#9819;</span>
+        </div>
+        <small>1 of 3 royals invited &mdash; 2 to go.</small>
+      </div>
+
+      <!-- ROYAL WALL -->
+      <div class="royal-wall reveal" id="royalWall" aria-label="Royal Wall">
+        <span class="kicker">The Royal Wall</span>
+        <h3>Top supporters of the kingdom.</h3>
+        <div class="rw-grid">
+          <div class="rw-tile rw-1"><span>&#129351;</span><b>K. Hayes</b><i>27 cups &bull; Royal Court</i></div>
+          <div class="rw-tile rw-2"><span>&#129352;</span><b>D. Bryant</b><i>21 cups &bull; Royal Court</i></div>
+          <div class="rw-tile rw-3"><span>&#129353;</span><b>M. Foster</b><i>19 cups &bull; Gold Crown</i></div>
+          <div class="rw-tile"><span>&#9819;</span><b>J. Camp</b><i>15 cups &bull; Gold Crown</i></div>
+          <div class="rw-tile"><span>&#9819;</span><b>A. Patel</b><i>12 cups &bull; Gold Crown</i></div>
+          <div class="rw-tile"><span>&#9819;</span><b>R. Walker</b><i>11 cups &bull; Gold Crown</i></div>
+        </div>
+      </div>
+
+      <!-- SECRET MENU TEASER -->
+      <div class="secret-menu reveal" id="secretMenu" aria-label="Secret menu">
+        <span class="kicker">Secret Menu</span>
+        <h3>Locked for the Court.</h3>
+        <div class="sm-grid">
+          <div class="sm-card locked"><span class="sm-lock">&#128274;</span><b>Honey Crown Drizzle</b><i>Members only</i></div>
+          <div class="sm-card locked"><span class="sm-lock">&#128274;</span><b>Espresso Throne</b><i>Members only</i></div>
+          <div class="sm-card locked"><span class="sm-lock">&#128274;</span><b>Salted Caramel Royal</b><i>Members only</i></div>
         </div>
       </div>
     </section>
@@ -816,6 +1305,33 @@
           </div>
         </div>
       </div>
+
+      <!-- Investor / franchise framing -->
+      <div class="investor-band reveal" aria-label="Future vision">
+        <div class="ib-step ib-now">
+          <span class="ib-tag">NOW</span>
+          <h3>Pop-Up Drops</h3>
+          <p>60-cup batches. Limited weekly drops. Crown Club gated access.</p>
+        </div>
+        <span class="ib-arrow">&rarr;</span>
+        <div class="ib-step ib-next">
+          <span class="ib-tag">NEXT</span>
+          <h3>Storefront</h3>
+          <p>150+ cups/week. Walk-in counter. Daily flavor rotation.</p>
+        </div>
+        <span class="ib-arrow">&rarr;</span>
+        <div class="ib-step ib-future">
+          <span class="ib-tag">FUTURE</span>
+          <h3>Dessert Empire</h3>
+          <p>Multi-location. Wholesale party drops. Franchise-ready brand system.</p>
+        </div>
+      </div>
+
+      <!-- Press-style proof -->
+      <div class="press-proof reveal" aria-label="Press proof">
+        <span class="pp-quote">&ldquo;</span>
+        <p><strong>From 18 cups to 60-cup drops</strong> &mdash; The Creamy Queen is building dessert royalty one sellout at a time.</p>
+      </div>
     </section>
 
     <!-- ═══ ROYAL FLAVOR VAULT ═══ -->
@@ -904,6 +1420,14 @@
         </article>
       </div>
       <p class="vote-verdict" id="voteVerdict" aria-live="polite"></p>
+
+      <!-- CROWNED NEXT REVEAL -->
+      <div class="crowned-next" id="crownedNext" aria-live="polite" hidden>
+        <div class="cn-crown">&#9819;</div>
+        <span class="cn-kicker">CROWNED NEXT</span>
+        <h3 id="cnFlavor">&mdash;</h3>
+        <p>The court has spoken. This crown drops next.</p>
+      </div>
     </section>
 
     <!-- ═══ CUSTOMER REVIEWS ═══ -->
@@ -1105,7 +1629,11 @@
         <span class="kicker">Preorder Builder</span>
         <h2>Reserve the crown before it sells out.</h2>
         <p>
-          Fill out your order below. Copy the summary and send it via your preferred payment method.
+          Fill out your order below. Pay with one tap &mdash; Cash App, Square, or Stripe link.
+          Pickup location is revealed after your crown is sealed.
+        </p>
+        <p class="deadline-banner" id="deadlineBanner">
+          &#9201; Orders close <strong>Thursday at 9 PM</strong> or when sold out &mdash; whichever comes first.
         </p>
       </div>
 
@@ -1122,6 +1650,16 @@
             </label>
           </div>
 
+          <!-- Delivery / Pickup toggle -->
+          <div class="dp-toggle" role="radiogroup" aria-label="Fulfillment">
+            <button type="button" class="dp-opt active" data-mode="pickup" role="radio" aria-checked="true">
+              <span>&#9819;</span> Crown Pickup Window
+            </button>
+            <button type="button" class="dp-opt" data-mode="delivery" role="radio" aria-checked="false">
+              <span>&#128666;</span> Local Delivery <small>(coming soon)</small>
+            </button>
+          </div>
+
           <div class="form-row">
             <label>
               Pack
@@ -1130,6 +1668,7 @@
                 <option value="Royal Sampler|18" selected>Royal Sampler &mdash; $18</option>
                 <option value="Family Crown Box|38">Family Crown Box &mdash; $38</option>
                 <option value="Party Drop Box|75">Party Drop Box &mdash; $75</option>
+                <option value="Team Crown Box|120">Team Crown Box (20) &mdash; $120</option>
                 <option value="50-Cup Party Drop|325">50-Cup Party Drop &mdash; $325+</option>
                 <option value="100-Cup Event Drop|650">100-Cup Event Drop &mdash; $650+</option>
               </select>
@@ -1217,9 +1756,21 @@
               Royal Sampler &bull; Qty 1 &bull; Mix of all 3 &bull; Friday 5&ndash;7 PM
             </p>
             <div class="cashapp-box">
-              <small>Payment Placeholder</small>
+              <small>One-Tap Payment</small>
               <strong>$YourCashApp</strong>
-              <p>Replace this with Cash App, Square, Stripe Payment Link, or your preferred preorder method.</p>
+              <div class="pay-links" id="payLinks">
+                <a class="pay-link cashapp" href="#" data-pay="cashapp">Cash App Pay</a>
+                <a class="pay-link square" href="#" data-pay="square">Square</a>
+                <a class="pay-link stripe" href="#" data-pay="stripe">Stripe Link</a>
+              </div>
+              <p>Replace these with your live Cash App, Square, or Stripe Payment Link.</p>
+            </div>
+
+            <!-- Pickup location reveal (hidden until seal) -->
+            <div class="pickup-reveal" id="pickupReveal" hidden>
+              <span class="pr-kicker">Crown Pickup Window &mdash; revealed</span>
+              <strong>Friday 5&ndash;7 PM</strong>
+              <p>Pickup address &amp; gate code texted to Crown Club members 2 hours before window opens.</p>
             </div>
           </div>
 
@@ -1236,6 +1787,19 @@
       </div>
     </section>
   </main>
+
+  <!-- ═══ SMS / EMAIL CAPTURE (before footer) ═══ -->
+  <section class="sms-capture" aria-label="Drop alerts">
+    <div class="sc-inner reveal">
+      <span class="sc-crown">&#9819;</span>
+      <p class="sc-line">The next drop will sell out. <strong>Get the text first.</strong></p>
+      <form class="sc-form" id="smsForm" novalidate>
+        <input type="text" id="smsInput" placeholder="Phone or email" aria-label="Phone or email">
+        <button class="button primary shimmer" type="submit">Get the Drop Alert</button>
+      </form>
+      <small id="smsResult" aria-live="polite">Crown Club members get the drop 12 minutes before the public. No spam. Just drops.</small>
+    </div>
+  </section>
 
   <footer class="footer">
     <div>
@@ -1262,9 +1826,9 @@
   <div class="toast" id="toast">Order copied to clipboard.</div>
 
   <!-- ═══ MOBILE FLOATING PREORDER CTA ═══ -->
-  <a class="floating-cta" id="floatingCta" href="#preorder" aria-label="Jump to preorder">
+  <a class="floating-cta" id="floatingCta" href="#preorder" aria-label="Order the Drop">
     <span class="fc-crown">&#9819;</span>
-    <span class="fc-text"><b>Claim Your Cup</b><small><span id="fcRemaining">18</span> left in Batch 003</small></span>
+    <span class="fc-text"><b>Order the Drop &#9819;</b><small><span id="fcRemaining">18</span> left in Batch 003</small></span>
   </a>
 
   <script src="script.js"></script>
