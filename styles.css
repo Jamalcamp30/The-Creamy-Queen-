@@ -2763,7 +2763,8 @@ body.urgency-active #fcRemaining { animation: cq-shake 1.6s ease-in-out infinite
 .flavor-build { max-width: 1100px; margin: 30px auto 0; padding: 0 16px; text-align: center; }
 .fb-head h3 { font-family: 'Playfair Display', serif; font-size: clamp(20px, 2.6vw, 28px); }
 .fb-stages { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 18px; }
-@media (max-width: 640px) { .fb-stages { grid-template-columns: repeat(5, 1fr); } }
+@media (max-width: 640px) { .fb-stages { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 380px) { .fb-stages { grid-template-columns: repeat(2, 1fr); } }
 .fb-stage { position: relative; padding: 12px 6px;
   background: rgba(0,0,0,0.30); border: 1px solid var(--border); border-radius: 12px; }
 .fb-stage b { display: block; font-family: 'Playfair Display', serif; color: var(--gold-2); font-size: 18px; }
