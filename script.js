@@ -1108,3 +1108,253 @@ function launchConfetti() {
     }
   }
 })();
+
+/* ═══════════════════════════════════════════════════
+   60X UPGRADE — NEW BEHAVIORS
+═══════════════════════════════════════════════════ */
+
+/* ── Hero mini countdown (mirrors crown clock) ── */
+(function () {
+  var hd = document.getElementById('hcDays');
+  var hh = document.getElementById('hcHours');
+  var hm = document.getElementById('hcMins');
+  var hs = document.getElementById('hcSecs');
+  if (!hd || !hh || !hm || !hs) return;
+  var target = CQ.dropDate ? CQ.dropDate.getTime() : (Date.now() + 86400000 * 3);
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function tick() {
+    var diff = target - Date.now();
+    if (diff <= 0) {
+      hd.textContent = '00'; hh.textContent = '00'; hm.textContent = '00'; hs.textContent = '00';
+      return;
+    }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    hd.textContent = pad(d); hh.textContent = pad(h); hm.textContent = pad(m); hs.textContent = pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+/* ── Crown Drop Room: live cup grid + flavor lock ── */
+(function () {
+  var grid = document.getElementById('cdrCups');
+  if (!grid) return;
+  var sold = CQ.sold || 42;
+  var total = CQ.total || 60;
+  var html = '';
+  for (var i = 1; i <= total; i++) {
+    html += '<span class="cdr-cup' + (i <= sold ? ' claimed' : '') + '" data-num="' + i + '"></span>';
+  }
+  grid.innerHTML = html;
+  var claimedEl = document.getElementById('cdrClaimed');
+  var remainEl = document.getElementById('cdrRemaining');
+  function setStats() {
+    if (claimedEl) claimedEl.textContent = sold;
+    if (remainEl) remainEl.textContent = total - sold;
+  }
+  setStats();
+
+  /* Simulate a cup being claimed every ~14s to feel live */
+  function claimNext() {
+    if (sold >= total) return;
+    sold++;
+    var next = grid.querySelector('.cdr-cup:not(.claimed)');
+    if (next) { next.classList.add('claimed', 'just-claimed'); setTimeout(function () { next.classList.remove('just-claimed'); }, 700); }
+    setStats();
+    setTimeout(claimNext, 14000 + Math.random() * 8000);
+  }
+  setTimeout(claimNext, 12000);
+
+  /* Flavor lock */
+  var locked = null;
+  var lockedEl = document.getElementById('cdrLocked');
+  document.querySelectorAll('.cdr-flav').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.cdr-flav').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      locked = btn.dataset.flavor;
+      if (lockedEl) lockedEl.innerHTML = 'Crown locked: <strong>' + locked + '</strong>';
+      try { localStorage.setItem('cq_cdr_locked', locked); } catch (e) {}
+      var flavorSelect = document.getElementById('flavorSelect');
+      if (flavorSelect) {
+        for (var i = 0; i < flavorSelect.options.length; i++) {
+          if (flavorSelect.options[i].text === locked || flavorSelect.options[i].value === locked) {
+            flavorSelect.selectedIndex = i; break;
+          }
+        }
+      }
+    });
+  });
+})();
+
+/* ── Mini vote mirroring in CDR ── */
+(function () {
+  var b = document.getElementById('cdrVoteBanana');
+  var s = document.getElementById('cdrVoteStraw');
+  if (!b || !s) return;
+  try {
+    var v = JSON.parse(localStorage.getItem('cq_votes')) || { banana: 47, strawberry: 31 };
+    var tot = v.banana + v.strawberry || 1;
+    var bp = Math.round((v.banana / tot) * 100);
+    b.textContent = bp + '%';
+    s.textContent = (100 - bp) + '%';
+  } catch (e) {}
+})();
+
+/* ── Delivery/Pickup toggle ── */
+(function () {
+  var opts = document.querySelectorAll('.dp-opt');
+  if (!opts.length) return;
+  opts.forEach(function (o) {
+    o.addEventListener('click', function () {
+      opts.forEach(function (x) { x.classList.remove('active'); x.setAttribute('aria-checked', 'false'); });
+      o.classList.add('active');
+      o.setAttribute('aria-checked', 'true');
+      if (o.dataset.mode === 'delivery') {
+        showToast('Local delivery is coming soon. Pickup is live now.');
+      }
+    });
+  });
+})();
+
+/* ── Pickup reveal + pay link toast (after seal click) ── */
+(function () {
+  var seal = document.getElementById('copyOrder');
+  var reveal = document.getElementById('pickupReveal');
+  if (seal && reveal) {
+    seal.addEventListener('click', function () {
+      reveal.hidden = false;
+    });
+  }
+  document.querySelectorAll('.pay-link').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      var which = link.dataset.pay || 'payment';
+      showToast('Add your live ' + which.charAt(0).toUpperCase() + which.slice(1) + ' link in the code to enable one-tap checkout.');
+    });
+  });
+})();
+
+/* ── Crown Club gate enhancements: birthday persist, SMS opt-in, member card ── */
+(function () {
+  var form = document.getElementById('gateForm');
+  if (!form) return;
+  var birthday = document.getElementById('gateBirthday');
+  var sms = document.getElementById('gateSms');
+  var memberCard = document.getElementById('memberCard');
+  var mcNumber = document.getElementById('mcNumber');
+  var mcBday = document.getElementById('mcBday');
+  var mcTier = document.getElementById('mcTier');
+  var mcPunches = document.getElementById('mcPunches');
+
+  try {
+    var saved = JSON.parse(localStorage.getItem('cq_club') || '{}');
+    if (saved.birthday && birthday) birthday.value = saved.birthday;
+    if (mcBday && saved.birthday) mcBday.textContent = saved.birthday;
+    if (mcPunches) mcPunches.textContent = saved.punches || 0;
+  } catch (e) {}
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var data = {
+      contact: (document.getElementById('gateInput') || {}).value || '',
+      birthday: birthday ? birthday.value : '',
+      sms: sms ? sms.checked : false,
+      punches: 0,
+      ts: Date.now()
+    };
+    try { localStorage.setItem('cq_club', JSON.stringify(data)); } catch (err) {}
+    if (mcNumber) mcNumber.textContent = '#' + String(50 + Math.floor(Math.random() * 200)).padStart(4, '0');
+    if (mcBday && data.birthday) mcBday.textContent = data.birthday;
+    if (mcTier) mcTier.textContent = 'SILVER SPOON';
+    showToast('Crown unlocked. SMS drop alerts ' + (data.sms ? 'on' : 'off') + '.');
+  });
+})();
+
+/* ── Referral copy ── */
+(function () {
+  var btn = document.getElementById('refCopy');
+  var code = document.getElementById('refCode');
+  if (!btn || !code) return;
+  btn.addEventListener('click', function () {
+    var text = code.textContent.trim();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { showToast('Referral code copied — share with your court.'); });
+    } else {
+      showToast('Referral code: ' + text);
+    }
+  });
+})();
+
+/* ── Crowned Next: reveal after vote ── */
+(function () {
+  var box = document.getElementById('crownedNext');
+  var nameEl = document.getElementById('cnFlavor');
+  if (!box || !nameEl) return;
+  function maybeReveal() {
+    var voted = null;
+    try { voted = localStorage.getItem('cq_voted_flavor'); } catch (e) {}
+    if (!voted) return;
+    try {
+      var v = JSON.parse(localStorage.getItem('cq_votes')) || { banana: 47, strawberry: 31 };
+      var winner = v.banana >= v.strawberry ? 'Banana Pudding Throne' : 'Strawberry Shortcake Queen';
+      nameEl.textContent = winner;
+      box.hidden = false;
+    } catch (e) {}
+  }
+  maybeReveal();
+  /* listen for clicks on vote buttons */
+  ['voteBanana', 'voteStrawberry'].forEach(function (id) {
+    var b = document.getElementById(id);
+    if (b) b.addEventListener('click', function () { setTimeout(maybeReveal, 200); });
+  });
+})();
+
+/* ── BCQ catering quote form ── */
+(function () {
+  var form = document.getElementById('bcqForm');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var result = document.getElementById('bcqResult');
+    var name = (document.getElementById('bcqName') || {}).value || '';
+    if (!name) {
+      if (result) result.textContent = 'Add your name to send the quote request.';
+      return;
+    }
+    if (result) result.textContent = 'Royal quote request received. The Queen will reply within 24 hours.';
+    showToast('Catering quote request sent.');
+  });
+})();
+
+/* ── SMS capture (before footer) ── */
+(function () {
+  var form = document.getElementById('smsForm');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var input = document.getElementById('smsInput');
+    var result = document.getElementById('smsResult');
+    var v = input ? input.value.trim() : '';
+    if (!v) {
+      if (result) result.textContent = 'Enter a phone or email to get the next drop first.';
+      return;
+    }
+    try { localStorage.setItem('cq_sms_optin', v); } catch (e) {}
+    if (result) result.textContent = "You're on the list. The next drop will land in your inbox first.";
+    showToast('Drop alert confirmed — get ready for the crown.');
+    if (input) input.value = '';
+  });
+})();
+
+/* ── Sync hero cup label number with summary cup number ── */
+(function () {
+  var label = document.getElementById('cupLabelNum');
+  var summary = document.getElementById('summaryCupNum');
+  if (!label || !summary) return;
+  var obs = new MutationObserver(function () { label.textContent = summary.textContent; });
+  obs.observe(summary, { childList: true, characterData: true, subtree: true });
+})();
