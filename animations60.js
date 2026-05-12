@@ -682,9 +682,12 @@
           '<div class="cq60-cert-card">' +
             '<div class="cc-crown">♛</div>' +
             '<div style="font:700 11px/1.2 Inter, sans-serif;letter-spacing:.18em;color:#f7d46b">CROWN MEMBER</div>' +
-            '<div class="cc-num">' + num + '</div>' +
+            '<div class="cc-num"></div>' +
             '<div style="opacity:.8">By royal decree of The Creamy Queen.</div>' +
           '</div>';
+        // Use textContent to safely inject the user-derived member number (no HTML).
+        var numEl = c.querySelector('.cc-num');
+        if (numEl) numEl.textContent = num;
         document.body.appendChild(c);
         requestAnimationFrame(function () { c.classList.add('go'); });
         document.body.classList.add('cq60-club-member'); // also enables (46)
@@ -706,7 +709,14 @@
     var form = document.getElementById('gateForm');
     if (!bday || !form) return;
     form.addEventListener('submit', function () {
-      if (!bday.value || !/^\d{1,2}\/\d{1,2}$/.test(bday.value.trim())) return;
+      var raw = (bday.value || '').trim();
+      var m = raw.match(/^(\d{1,2})\/(\d{1,2})$/);
+      if (!m) return;
+      var mm = parseInt(m[1], 10), dd = parseInt(m[2], 10);
+      if (mm < 1 || mm > 12 || dd < 1 || dd > 31) return;
+      // max days per month (Feb max 29 to allow leap-day birthdays)
+      var maxDay = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][mm - 1];
+      if (dd > maxDay) return;
       // visually unlock the birthday line in the perks list
       var perks = document.querySelectorAll('.club-perks li');
       perks.forEach(function (li) {
